@@ -1,29 +1,664 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ATOMIK — El sistema de hábitos que realmente funciona</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #100B28; color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 48px 24px; }
-    .logo { font-size: 13px; font-weight: 700; letter-spacing: 4px; color: #9b8ef7; margin-bottom: 8px; }
-    h1 { font-size: 36px; font-weight: 300; letter-spacing: -1px; text-align: center; line-height: 1.2; margin-bottom: 16px; }
-    p { color: #888; font-size: 16px; text-align: center; max-width: 400px; line-height: 1.6; margin-bottom: 40px; }
-    .badge { background: #1c1440; border: 1px solid #2a1f5a; border-radius: 12px; padding: 12px 20px; font-size: 14px; color: #9b8ef7; }
-    nav { margin-top: 60px; display: flex; gap: 32px; }
-    nav a { color: #555; font-size: 13px; text-decoration: none; }
-    nav a:hover { color: #9b8ef7; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ATOMIK — Hábitos que cambian tu identidad</title>
+<meta name="description" content="La app de hábitos basada en Hábitos Atómicos de James Clear.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+:root {
+  --bg:      #F7F6F2;
+  --card:    #FFFFFF;
+  --surface: #EEEDE8;
+  --text:    #1A1A1A;
+  --sub:     rgba(0,0,0,0.38);
+  --border:  rgba(0,0,0,0.07);
+  --accent:  #8B7FF5;
+  --a10:     rgba(139,127,245,0.10);
+  --a20:     rgba(139,127,245,0.20);
+  --red:     #E05252;
+  --green:   #4CAF7D;
+  --font:    'Inter', sans-serif;
+  --display: 'Outfit', sans-serif;
+}
+body { font-family: var(--font); background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 60px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+  background: rgba(247,246,242,0.82);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+}
+.n-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.n-logo-text { font-family: var(--display); font-size: 13px; font-weight: 500; letter-spacing: 3px; color: var(--text); }
+.n-links { display: flex; gap: 32px; }
+.n-link { font-size: 13px; color: var(--sub); text-decoration: none; transition: color 0.2s; }
+.n-link:hover { color: var(--text); }
+.n-right { display: flex; align-items: center; gap: 14px; }
+.lang-pill { display: flex; background: var(--surface); border-radius: 8px; padding: 3px; gap: 2px; }
+.lang-btn { font-family: var(--font); font-size: 11px; font-weight: 500; padding: 4px 11px; border-radius: 6px; border: none; background: transparent; color: var(--sub); cursor: pointer; transition: all 0.2s; letter-spacing: 0.5px; }
+.lang-btn.active { background: var(--card); color: var(--text); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.n-cta { font-family: var(--font); font-size: 13px; font-weight: 500; background: var(--accent); color: #fff; border: none; border-radius: 9px; padding: 8px 20px; cursor: pointer; transition: opacity 0.2s, transform 0.15s; text-decoration: none; }
+.n-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+/* HERO */
+.hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 40px 80px; position: relative; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; z-index: 0; will-change: transform; background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(139,127,245,0.08) 0%, transparent 70%); }
+.hero-orb { position: absolute; border-radius: 50%; filter: blur(80px); will-change: transform; pointer-events: none; }
+.orb1 { width: 500px; height: 500px; background: rgba(139,127,245,0.07); top: -100px; left: -100px; animation: pulse 8s ease-in-out infinite; }
+.orb2 { width: 400px; height: 400px; background: rgba(139,127,245,0.05); bottom: -80px; right: -80px; animation: pulse 10s 2s ease-in-out infinite; }
+.orbit-wrap { position: absolute; inset: 0; pointer-events: none; z-index: 0; animation: fadeIn 1.2s 0.8s ease forwards; opacity: 0; }
+.orbit-dot { position: absolute; border-radius: 50%; background: var(--accent); opacity: 0.12; will-change: transform; }
+.od1 { width: 8px; height: 8px; top: 22%; left: 12%; animation: floatA 6s ease-in-out infinite; }
+.od2 { width: 5px; height: 5px; top: 68%; left: 8%; animation: floatB 7s 1s ease-in-out infinite; }
+.od3 { width: 10px; height: 10px; top: 30%; right: 10%; animation: floatA 8s 0.5s ease-in-out infinite; }
+.od4 { width: 6px; height: 6px; top: 75%; right: 15%; animation: floatB 5.5s 2s ease-in-out infinite; }
+.od5 { width: 4px; height: 4px; top: 55%; left: 20%; animation: floatA 9s 1.5s ease-in-out infinite; }
+.od6 { width: 7px; height: 7px; top: 18%; right: 22%; animation: floatB 6.5s 0.8s ease-in-out infinite; }
+.hero-content { position: relative; z-index: 1; max-width: 780px; }
+.hero-badge { display: inline-flex; align-items: center; gap: 7px; background: var(--a10); border: 1px solid var(--a20); border-radius: 20px; padding: 5px 16px; font-size: 11px; color: var(--accent); font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 32px; opacity: 0; transform: translateY(16px); animation: fadeUp 0.7s 0.1s ease forwards; }
+.hero h1 { font-family: var(--display); font-size: clamp(44px, 7vw, 80px); font-weight: 300; line-height: 1.05; letter-spacing: -2px; color: var(--text); margin-bottom: 24px; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s 0.2s ease forwards; }
+.hero h1 strong { font-weight: 600; color: var(--accent); }
+.hero-sub { font-size: clamp(16px, 2vw, 19px); font-weight: 300; color: var(--sub); line-height: 1.7; max-width: 520px; margin: 0 auto 44px; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s 0.35s ease forwards; }
+.hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s 0.48s ease forwards; }
+.btn-store { display: inline-flex; align-items: center; gap: 10px; background: var(--text); color: #fff; border: none; border-radius: 14px; padding: 14px 24px; font-family: var(--font); cursor: pointer; text-decoration: none; transition: opacity 0.2s, transform 0.2s; }
+.btn-store:hover { opacity: 0.85; transform: translateY(-2px); }
+.btn-store-icon { font-size: 22px; }
+.btn-store-sup { font-size: 10px; opacity: 0.55; font-weight: 300; display: block; }
+.btn-store-name { font-size: 15px; font-weight: 500; display: block; line-height: 1.2; }
+.hero-proof { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 24px; font-size: 13px; color: var(--sub); opacity: 0; animation: fadeUp 0.8s 0.6s ease forwards; }
+.stars { color: #FFBB38; letter-spacing: 2px; }
+.proof-sep { width: 1px; height: 14px; background: var(--border); }
+
+/* SCROLL REVEAL */
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.75s ease, transform 0.75s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.32s; }
+.reveal-delay-4 { transition-delay: 0.44s; }
+
+/* SECTIONS */
+.section-label { font-size: 11px; font-weight: 500; letter-spacing: 2.5px; color: var(--accent); text-transform: uppercase; margin-bottom: 14px; }
+.section-title { font-family: var(--display); font-size: clamp(30px, 4vw, 48px); font-weight: 300; line-height: 1.1; letter-spacing: -1px; color: var(--text); margin-bottom: 12px; }
+.section-sub { font-size: 16px; font-weight: 300; color: var(--sub); line-height: 1.7; max-width: 480px; margin-bottom: 56px; }
+
+/* STREAK */
+.streak-section { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 100px 0; }
+.streak-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.chain-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.chain-day { aspect-ratio: 1; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; }
+.chain-day.done { background: var(--accent); color: #fff; }
+.chain-day.fail { background: #FDECEA; color: var(--red); }
+.chain-day.empty { background: var(--surface); color: var(--sub); }
+.chain-day.today { background: var(--accent); color: #fff; box-shadow: 0 0 0 3px var(--a20); transform: scale(1.1); }
+.streak-stats { display: flex; gap: 28px; margin-top: 36px; }
+.streak-stat-num { font-family: var(--display); font-size: 44px; font-weight: 300; color: var(--accent); letter-spacing: -2px; line-height: 1; }
+.streak-stat-label { font-size: 12px; color: var(--sub); margin-top: 4px; }
+
+/* IDENTITY */
+.identity-section { padding: 110px 0; background: var(--text); }
+.identity-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+.identity-section .section-label { color: rgba(139,127,245,0.8); }
+.identity-section .section-title { color: #fff; }
+.identity-section .section-sub { color: rgba(255,255,255,0.35); }
+.identity-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.id-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 28px 24px; transition: background 0.3s, transform 0.3s; }
+.id-card:hover { background: rgba(255,255,255,0.07); transform: translateY(-3px); }
+.id-quote { font-family: var(--display); font-size: 18px; font-weight: 300; color: #fff; line-height: 1.5; margin-bottom: 16px; }
+.id-habit { font-size: 12px; color: rgba(255,255,255,0.35); display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+.id-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+/* CHARTS */
+.chart-section { padding: 100px 0; background: var(--bg); }
+.chart-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+.chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.chart-card { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 32px; overflow: hidden; }
+.chart-card-label { font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--sub); margin-bottom: 6px; }
+.chart-card-title { font-family: var(--display); font-size: 20px; font-weight: 300; color: var(--text); margin-bottom: 28px; letter-spacing: -0.3px; }
+
+/* Line chart */
+.line-chart-wrap { position: relative; height: 130px; }
+.line-svg { width: 100%; height: 100%; overflow: visible; }
+.line-path { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1000; stroke-dashoffset: 1000; transition: stroke-dashoffset 1.8s cubic-bezier(0.16,1,0.3,1); }
+.line-path.draw { stroke-dashoffset: 0; }
+
+/* Bar chart */
+.bar-wrap { display: flex; align-items: flex-end; gap: 6px; height: 120px; margin-bottom: 6px; }
+.bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
+.bar-fill { width: 100%; border-radius: 5px 5px 0 0; background: var(--accent); min-height: 4px; transition: height 1.2s cubic-bezier(0.16,1,0.3,1); }
+.bar-fill.dim { background: var(--surface); }
+.bar-months-row { display: flex; gap: 6px; }
+.bar-month { flex: 1; text-align: center; font-size: 9px; color: var(--sub); }
+
+/* Calendar */
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+.cal-day { aspect-ratio: 1; border-radius: 6px; transition: transform 0.2s; }
+.cal-day:hover { transform: scale(1.15); }
+.cal-done { background: var(--accent); }
+.cal-fail { background: rgba(224,82,82,0.28); }
+.cal-empty { background: var(--surface); }
+.cal-today { background: var(--accent); box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--accent); }
+.cal-legend { display: flex; gap: 14px; margin-top: 14px; flex-wrap: wrap; }
+.cal-legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--sub); }
+.cal-legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+
+/* Donut */
+.donut-wrap { display: flex; align-items: center; gap: 32px; }
+.donut-legend { display: flex; flex-direction: column; gap: 12px; }
+.donut-item { display: flex; align-items: center; gap: 10px; }
+.donut-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.donut-item-label { font-size: 13px; color: var(--sub); flex: 1; }
+.donut-item-val { font-size: 13px; font-weight: 500; color: var(--text); }
+
+/* MEDALS */
+.medals-section { padding: 100px 0; background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.medals-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+.medals-track { display: flex; gap: 14px; overflow-x: auto; padding-bottom: 12px; scroll-snap-type: x mandatory; -ms-overflow-style: none; scrollbar-width: none; }
+.medals-track::-webkit-scrollbar { display: none; }
+.medal-card { flex-shrink: 0; width: 170px; scroll-snap-align: start; background: var(--surface); border-radius: 20px; padding: 22px 18px; text-align: center; border: 1px solid var(--border); transition: transform 0.3s, box-shadow 0.3s; }
+.medal-card.unlocked { background: var(--a10); border-color: var(--a20); }
+.medal-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(139,127,245,0.14); }
+.medal-icon-box { width: 60px; height: 60px; border-radius: 16px; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; background: var(--card); border: 1px solid var(--border); }
+.medal-card.unlocked .medal-icon-box { background: var(--a10); border-color: var(--a20); }
+.medal-card.locked .medal-icon-box { background: var(--surface); }
+.medal-icon-box ion-icon { display: block; font-size: 28px; }
+.medal-days { font-family: var(--display); font-size: 26px; font-weight: 300; color: var(--accent); margin-bottom: 2px; }
+.medal-name { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+.medal-desc { font-size: 11px; color: var(--sub); line-height: 1.5; }
+.medal-card.locked .medal-name { color: var(--sub); }
+
+/* QUOTE */
+.quote-section { padding: 120px 40px; text-align: center; }
+.quote-mark { font-family: var(--display); font-size: 110px; font-weight: 300; color: var(--accent); opacity: 0.15; line-height: 0.6; margin-bottom: 20px; }
+.quote-text { font-family: var(--display); font-size: clamp(22px, 3.5vw, 38px); font-weight: 300; color: var(--text); line-height: 1.35; letter-spacing: -0.5px; max-width: 740px; margin: 0 auto 24px; }
+.quote-author { font-size: 14px; color: var(--accent); }
+
+/* PRICING */
+.pricing-section { padding: 100px 0; background: var(--card); border-top: 1px solid var(--border); }
+.pricing-inner { max-width: 860px; margin: 0 auto; padding: 0 40px; }
+.pricing-grid { display: grid; grid-template-columns: 1fr 1.12fr 1fr; gap: 14px; align-items: start; }
+.plan { background: var(--bg); border: 1px solid var(--border); border-radius: 24px; padding: 32px 26px; transition: transform 0.3s; }
+.plan:hover { transform: translateY(-4px); }
+.plan.featured { background: var(--accent); border-color: var(--accent); position: relative; padding-top: 44px; }
+.plan-badge-wrap { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--text); color: #fff; font-size: 10px; font-weight: 500; letter-spacing: 1.5px; padding: 5px 16px; border-radius: 20px; white-space: nowrap; text-transform: uppercase; }
+.plan-name { font-size: 13px; font-weight: 400; color: var(--sub); margin-bottom: 10px; }
+.plan.featured .plan-name { color: rgba(255,255,255,0.6); }
+.plan-price { font-family: var(--display); font-size: 44px; font-weight: 300; letter-spacing: -2px; color: var(--text); line-height: 1; margin-bottom: 4px; }
+.plan.featured .plan-price { color: #fff; }
+.plan-period { font-size: 12px; color: var(--sub); margin-bottom: 28px; }
+.plan.featured .plan-period { color: rgba(255,255,255,0.55); }
+.plan-feats { list-style: none; margin-bottom: 28px; display: flex; flex-direction: column; gap: 10px; }
+.plan-feats li { font-size: 13px; font-weight: 300; color: var(--sub); display: flex; align-items: center; gap: 8px; }
+.plan.featured .plan-feats li { color: rgba(255,255,255,0.75); }
+.feat-check { width: 16px; height: 16px; border-radius: 50%; background: var(--a20); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.plan.featured .feat-check { background: rgba(255,255,255,0.2); }
+.plan-cta { width: 100%; font-family: var(--font); font-size: 14px; font-weight: 500; padding: 14px; border-radius: 14px; border: none; cursor: pointer; transition: all 0.2s; }
+.cta-ghost { background: transparent; color: var(--sub); border: 1px solid var(--border); }
+.cta-ghost:hover { background: var(--surface); color: var(--text); }
+.cta-primary { background: #fff; color: var(--accent); }
+.cta-primary:hover { opacity: 0.92; }
+
+/* FOOTER */
+footer { border-top: 1px solid var(--border); padding: 38px 48px; display: flex; justify-content: space-between; align-items: center; }
+.footer-logo { font-family: var(--display); font-size: 11px; font-weight: 500; letter-spacing: 3px; color: var(--sub); }
+.footer-links { display: flex; gap: 28px; }
+.footer-link { font-size: 13px; color: var(--sub); text-decoration: none; transition: color 0.2s; }
+.footer-link:hover { color: var(--text); }
+.footer-copy { font-size: 12px; color: var(--sub); opacity: 0.5; }
+
+/* ANIMATIONS */
+@keyframes fadeUp  { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
+@keyframes fadeIn  { from { opacity:0; } to { opacity:1; } }
+@keyframes pulse   { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
+@keyframes floatA  { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-12px); } }
+@keyframes floatB  { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-8px); } }
+
+/* RESPONSIVE */
+@media (max-width: 860px) {
+  .streak-inner, .identity-cards, .chart-grid, .pricing-grid { grid-template-columns: 1fr; }
+  .pricing-inner { max-width: 360px; }
+  footer { flex-direction: column; gap: 18px; text-align: center; padding: 28px 20px; }
+}
+@media (max-width: 600px) {
+  nav { padding: 0 20px; }
+  .n-links { display: none; }
+  .hero, .quote-section { padding-left: 20px; padding-right: 20px; }
+  .streak-inner, .identity-inner, .chart-inner, .medals-inner, .pricing-inner { padding-left: 20px; padding-right: 20px; }
+  .chart-grid { grid-template-columns: 1fr; }
+}
+</style>
 </head>
 <body>
-  <div class="logo">ATOMIK</div>
-  <h1>El sistema de hábitos<br>que realmente funciona.</h1>
-  <p>Construye rachas, desbloquea medallas y crea rutinas duraderas con la app más minimalista del App Store.</p>
-  <div class="badge">Disponible en el App Store</div>
-  <nav>
-    <a href="privacy.html">Política de privacidad</a>
-    <a href="support.html">Soporte</a>
-  </nav>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="n-logo">
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+      <circle cx="14" cy="5.5" r="5" fill="url(#ng1)"/>
+      <circle cx="8"  cy="16"  r="3.7" fill="url(#ng2)"/>
+      <circle cx="20" cy="16"  r="3.7" fill="url(#ng2)"/>
+      <circle cx="4"  cy="24.5" r="2.4" fill="#5A50C8" opacity="0.65"/>
+      <circle cx="14" cy="24.5" r="2.4" fill="#5A50C8" opacity="0.65"/>
+      <circle cx="24" cy="24.5" r="2.4" fill="#5A50C8" opacity="0.65"/>
+      <defs>
+        <radialGradient id="ng1" cx="38%" cy="32%" r="62%"><stop offset="0%" stop-color="#C4B0FF"/><stop offset="100%" stop-color="#7B6FE8"/></radialGradient>
+        <radialGradient id="ng2" cx="38%" cy="32%" r="62%"><stop offset="0%" stop-color="#A899F8"/><stop offset="100%" stop-color="#5A50C8"/></radialGradient>
+      </defs>
+    </svg>
+    <span class="n-logo-text">ATOMIK</span>
+  </a>
+  <div class="n-links">
+    <a href="#racha"    class="n-link" data-es="Racha"     data-en="Streak">Racha</a>
+    <a href="#progreso" class="n-link" data-es="Progreso"  data-en="Progress">Progreso</a>
+    <a href="#medallas" class="n-link" data-es="Medallas"  data-en="Medals">Medallas</a>
+    <a href="#precio"   class="n-link" data-es="Precio"    data-en="Pricing">Precio</a>
+  </div>
+  <div class="n-right">
+    <div class="lang-pill">
+      <button class="lang-btn active" onclick="setLang('es')">ES</button>
+      <button class="lang-btn"        onclick="setLang('en')">EN</button>
+    </div>
+    <a href="#descargar" class="n-cta" data-es="Descargar" data-en="Download">Descargar</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  <div class="orbit-wrap">
+    <div class="orbit-dot od1"></div><div class="orbit-dot od2"></div>
+    <div class="orbit-dot od3"></div><div class="orbit-dot od4"></div>
+    <div class="orbit-dot od5"></div><div class="orbit-dot od6"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="var(--accent)" opacity="0.3"/><circle cx="5" cy="5" r="2" fill="var(--accent)"/></svg>
+      <span data-es="Basado en Hábitos Atómicos" data-en="Based on Atomic Habits">Basado en Hábitos Atómicos</span>
+    </div>
+    <h1><span data-es="Pequeños hábitos.<br><strong>Resultados enormes.</strong>" data-en="Small habits.<br><strong>Enormous results.</strong>">Pequeños hábitos.<br><strong>Resultados enormes.</strong></span></h1>
+    <p class="hero-sub" data-es="El sistema que realmente cambia tu identidad. No solo tu agenda." data-en="The system that truly changes your identity. Not just your schedule.">El sistema que realmente cambia tu identidad. No solo tu agenda.</p>
+    <div class="hero-btns" id="descargar">
+      <a href="#" class="btn-store">
+        <span class="btn-store-icon">🍎</span>
+        <span><span class="btn-store-sup" data-es="Disponible en" data-en="Download on the">Disponible en</span><span class="btn-store-name">App Store</span></span>
+      </a>
+    </div>
+    <div class="hero-proof">
+      <span class="stars">★★★★★</span>
+      <span data-es="4.9 · App Store" data-en="4.9 · App Store">4.9 · App Store</span>
+      <div class="proof-sep"></div>
+      <span data-es="Gratis · Pro desde $1.99" data-en="Free · Pro from $1.99">Gratis · Pro desde $1.99</span>
+    </div>
+  </div>
+</section>
+
+<!-- STREAK -->
+<div class="streak-section" id="racha">
+  <div class="streak-inner">
+    <div>
+      <div class="section-label reveal"            data-es="Racha diaria"   data-en="Daily streak">Racha diaria</div>
+      <div class="section-title reveal reveal-delay-1" data-es="Nunca falles<br>dos veces seguidas." data-en="Never fail<br>twice in a row.">Nunca falles<br>dos veces seguidas.</div>
+      <div class="section-sub reveal reveal-delay-2" data-es="Cada día que completas un hábito refuerzas quién eres. Un registro visual de tu consistencia, no de tu perfección." data-en="Every day you complete a habit, you reinforce who you are. A visual record of your consistency, not your perfection.">Cada día que completas un hábito refuerzas quién eres. Un registro visual de tu consistencia, no de tu perfección.</div>
+      <div class="streak-stats reveal reveal-delay-3">
+        <div>
+          <div class="streak-stat-num">21</div>
+          <div class="streak-stat-label" data-es="días de racha" data-en="day streak">días de racha</div>
+        </div>
+        <div style="width:1px;background:var(--border);"></div>
+        <div>
+          <div class="streak-stat-num" style="color:var(--text);">87%</div>
+          <div class="streak-stat-label" data-es="tasa de éxito" data-en="success rate">tasa de éxito</div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <div class="chain-grid" id="chainGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- IDENTITY -->
+<div class="identity-section">
+  <div class="identity-inner">
+    <div class="section-label reveal"                data-es="Identidad"    data-en="Identity">Identidad</div>
+    <div class="section-title reveal reveal-delay-1" data-es="No se trata de lo que haces.<br>Se trata de quién eres." data-en="It's not about what you do.<br>It's about who you are.">No se trata de lo que haces.<br>Se trata de quién eres.</div>
+    <div class="section-sub reveal reveal-delay-2"   data-es="Cada hábito parte de una declaración de identidad. El hábito refuerza la persona." data-en="Every habit starts from an identity statement. The habit reinforces the person.">Cada hábito parte de una declaración de identidad. El hábito refuerza la persona.</div>
+    <div class="identity-cards">
+      <div class="id-card reveal reveal-delay-1">
+        <div class="id-quote" data-es='"Soy una persona saludable"' data-en='"I am a healthy person"'>"Soy una persona saludable"</div>
+        <div class="id-habit"><div class="id-dot"></div><span data-es="→ Comer fruta cada mañana" data-en="→ Eat fruit every morning">→ Comer fruta cada mañana</span></div>
+        <div class="id-habit"><div class="id-dot"></div><span data-es="→ Dormir antes de las 11pm" data-en="→ Sleep before 11pm">→ Dormir antes de las 11pm</span></div>
+      </div>
+      <div class="id-card reveal reveal-delay-2">
+        <div class="id-quote" data-es='"Soy una persona disciplinada"' data-en='"I am a disciplined person"'>"Soy una persona disciplinada"</div>
+        <div class="id-habit"><div class="id-dot"></div><span data-es="→ Ejercicio TRX cada día" data-en="→ TRX exercise every day">→ Ejercicio TRX cada día</span></div>
+        <div class="id-habit"><div class="id-dot"></div><span data-es="→ Meditación 10 minutos" data-en="→ 10 minutes meditation">→ Meditación 10 minutos</span></div>
+      </div>
+      <div class="id-card reveal reveal-delay-3">
+        <div class="id-quote" data-es='"Soy una persona que aprende"' data-en='"I am a person who learns"'>"Soy una persona que aprende"</div>
+        <div class="id-habit"><div class="id-dot"></div><span data-es="→ Leer 20 minutos al día" data-en="→ Read 20 minutes a day">→ Leer 20 minutos al día</span></div>
+        <div class="id-habit"><div class="id-dot"></div><span data-es="→ Aprender palabra nueva" data-en="→ Learn a new word">→ Aprender palabra nueva</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHARTS -->
+<div class="chart-section" id="progreso">
+  <div class="chart-inner">
+    <div class="section-label reveal"                data-es="Estadísticas"  data-en="Statistics">Estadísticas</div>
+    <div class="section-title reveal reveal-delay-1" data-es="Tu progreso,<br>en números reales." data-en="Your progress,<br>in real numbers.">Tu progreso,<br>en números reales.</div>
+    <div class="section-sub reveal reveal-delay-2"   data-es="Vistas diaria, semanal, mensual y anual. Porque los datos honestos son la única forma de mejorar." data-en="Daily, weekly, monthly, and yearly views. Because honest data is the only way to improve.">Vistas diaria, semanal, mensual y anual. Porque los datos honestos son la única forma de mejorar.</div>
+    <div class="chart-grid">
+      <!-- Line -->
+      <div class="chart-card reveal reveal-delay-1">
+        <div class="chart-card-label" data-es="Esta semana" data-en="This week">Esta semana</div>
+        <div class="chart-card-title" data-es="Tasa de éxito por día" data-en="Daily success rate">Tasa de éxito por día</div>
+        <div class="line-chart-wrap">
+          <svg class="line-svg" id="lineSvg" viewBox="0 0 400 120" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="aGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.15"/>
+                <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path id="areaP" fill="url(#aGrad)"/>
+            <path id="lineP" class="line-path"/>
+            <text x="0"   y="118" fill="rgba(0,0,0,0.28)" font-size="11" font-family="Inter,sans-serif">Dom</text>
+            <text x="55"  y="118" fill="rgba(0,0,0,0.28)" font-size="11" font-family="Inter,sans-serif">Lun</text>
+            <text x="110" y="118" fill="rgba(0,0,0,0.28)" font-size="11" font-family="Inter,sans-serif">Mar</text>
+            <text x="163" y="118" fill="rgba(0,0,0,0.28)" font-size="11" font-family="Inter,sans-serif">Mié</text>
+            <text x="216" y="118" fill="rgba(0,0,0,0.28)" font-size="11" font-family="Inter,sans-serif">Jue</text>
+            <text x="269" y="118" fill="rgba(0,0,0,0.28)" font-size="11" font-family="Inter,sans-serif">Vie</text>
+            <text x="318" y="118" fill="rgba(0,0,0,0.28)" font-size="11" font-family="Inter,sans-serif">Sáb</text>
+          </svg>
+        </div>
+      </div>
+      <!-- Bars -->
+      <div class="chart-card reveal reveal-delay-2">
+        <div class="chart-card-label" data-es="Este año" data-en="This year">Este año</div>
+        <div class="chart-card-title" data-es="% mensual de logros" data-en="Monthly achievement %">% mensual de logros</div>
+        <div class="bar-wrap" id="barWrap"></div>
+        <div class="bar-months-row" id="barMonths"></div>
+      </div>
+      <!-- Calendar -->
+      <div class="chart-card reveal reveal-delay-1">
+        <div class="chart-card-label" data-es="Mayo 2026" data-en="May 2026">Mayo 2026</div>
+        <div class="chart-card-title" data-es="Calendario mensual" data-en="Monthly calendar">Calendario mensual</div>
+        <div class="cal-grid" id="calGrid"></div>
+        <div class="cal-legend">
+          <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--accent);"></div><span data-es="Completado" data-en="Completed">Completado</span></div>
+          <div class="cal-legend-item"><div class="cal-legend-dot" style="background:rgba(224,82,82,0.3);"></div><span data-es="Falla" data-en="Fail">Falla</span></div>
+          <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--surface);"></div><span data-es="Sin datos" data-en="No data">Sin datos</span></div>
+        </div>
+      </div>
+      <!-- Donut -->
+      <div class="chart-card reveal reveal-delay-2">
+        <div class="chart-card-label" data-es="Hoy" data-en="Today">Hoy</div>
+        <div class="chart-card-title" data-es="Distribución de hábitos" data-en="Habit distribution">Distribución de hábitos</div>
+        <div class="donut-wrap">
+          <svg width="120" height="120" viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="46" fill="none" stroke="var(--surface)" stroke-width="13"/>
+            <circle cx="60" cy="60" r="46" fill="none" stroke="var(--accent)" stroke-width="13"
+              stroke-dasharray="289" stroke-dashoffset="72" stroke-linecap="round" transform="rotate(-90 60 60)" id="donutC"/>
+            <circle cx="60" cy="60" r="46" fill="none" stroke="rgba(224,82,82,0.45)" stroke-width="13"
+              stroke-dasharray="289" stroke-dashoffset="217" stroke-linecap="round" transform="rotate(145 60 60)"/>
+            <text x="60" y="55" text-anchor="middle" font-size="15" font-family="Outfit,sans-serif" font-weight="300" fill="var(--accent)">75%</text>
+            <text x="60" y="69" text-anchor="middle" font-size="9" font-family="Inter,sans-serif" fill="rgba(0,0,0,0.35)">completado</text>
+          </svg>
+          <div class="donut-legend">
+            <div class="donut-item"><div class="donut-dot" style="background:var(--accent);"></div><span class="donut-item-label" data-es="Logros" data-en="Achieved">Logros</span><span class="donut-item-val">3</span></div>
+            <div class="donut-item"><div class="donut-dot" style="background:rgba(224,82,82,0.5);"></div><span class="donut-item-label" data-es="Fallas" data-en="Fails">Fallas</span><span class="donut-item-val">1</span></div>
+            <div class="donut-item"><div class="donut-dot" style="background:var(--surface);border:1px solid var(--border);"></div><span class="donut-item-label" data-es="Pendientes" data-en="Pending">Pendientes</span><span class="donut-item-val">0</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MEDALS -->
+<div class="medals-section" id="medallas">
+  <div class="medals-inner">
+    <div class="section-label reveal"                data-es="Medallas"     data-en="Medals">Medallas</div>
+    <div class="section-title reveal reveal-delay-1" data-es="Celebra cada<br>hito de constancia." data-en="Celebrate every<br>consistency milestone.">Celebra cada<br>hito de constancia.</div>
+    <div class="section-sub reveal reveal-delay-2"   data-es="9 medallas desbloqueables en hitos científicamente fundamentados. Porque la constancia merece ser celebrada." data-en="9 unlockable medals at scientifically grounded milestones. Because consistency deserves to be celebrated.">9 medallas desbloqueables en hitos científicamente fundamentados. Porque la constancia merece ser celebrada.</div>
+    <div class="medals-track reveal reveal-delay-3" id="medalsTrack"></div>
+  </div>
+</div>
+
+<!-- QUOTE -->
+<div class="quote-section reveal">
+  <div class="quote-mark">"</div>
+  <div class="quote-text" data-es='"Cada acción que tomas es un voto para el tipo de persona que deseas ser."' data-en='"Every action you take is a vote for the type of person you wish to become."'>"Cada acción que tomas es un voto para el tipo de persona que deseas ser."</div>
+  <div class="quote-author">— James Clear, Hábitos Atómicos · Cap. 3</div>
+</div>
+
+<!-- PRICING -->
+<div class="pricing-section" id="precio">
+  <div class="pricing-inner">
+    <div class="section-label reveal"                data-es="Precio"         data-en="Pricing">Precio</div>
+    <div class="section-title reveal reveal-delay-1" data-es="Simple y honesto." data-en="Simple and honest.">Simple y honesto.</div>
+    <div class="section-sub reveal reveal-delay-2"   data-es="Empieza gratis. Mejora cuando quieras." data-en="Start free. Upgrade whenever you want.">Empieza gratis. Mejora cuando quieras.</div>
+    <div class="pricing-grid">
+      <div class="plan reveal reveal-delay-1">
+        <div class="plan-name" data-es="Gratis" data-en="Free">Gratis</div>
+        <div class="plan-price">$0</div>
+        <div class="plan-period" data-es="Para siempre" data-en="Forever">Para siempre</div>
+        <ul class="plan-feats">
+          <li><div class="feat-check"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3.5 6L6.5 2" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/></svg></div><span data-es="3 hábitos" data-en="3 habits">3 hábitos</span></li>
+          <li><div class="feat-check"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3.5 6L6.5 2" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/></svg></div><span data-es="Racha y registros" data-en="Streak and logs">Racha y registros</span></li>
+          <li><div class="feat-check"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3.5 6L6.5 2" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/></svg></div><span data-es="Medallas básicas" data-en="Basic medals">Medallas básicas</span></li>
+        </ul>
+        <button class="plan-cta cta-ghost" data-es="Empezar gratis" data-en="Start free">Empezar gratis</button>
+      </div>
+      <div class="plan featured reveal reveal-delay-2">
+        <div class="plan-badge-wrap" data-es="MÁS POPULAR" data-en="MOST POPULAR">MÁS POPULAR</div>
+        <div class="plan-name" data-es="Pro Vitalicio" data-en="Lifetime Pro">Pro Vitalicio</div>
+        <div class="plan-price">$9.99</div>
+        <div class="plan-period" data-es="Pago único · Para siempre" data-en="One payment · Forever">Pago único · Para siempre</div>
+        <ul class="plan-feats">
+          <li><div class="feat-check"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3.5 6L6.5 2" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg></div><span data-es="Hábitos ilimitados" data-en="Unlimited habits">Hábitos ilimitados</span></li>
+          <li><div class="feat-check"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3.5 6L6.5 2" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg></div><span data-es="Estadísticas avanzadas" data-en="Advanced statistics">Estadísticas avanzadas</span></li>
+          <li><div class="feat-check"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3.5 6L6.5 2" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg></div><span data-es="Todas las medallas" data-en="All medals">Todas las medallas</span></li>
+          <li><div class="feat-check"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3.5 6L6.5 2" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg></div><span data-es="Bloqueo biométrico" data-en="Biometric lock">Bloqueo biométrico</span></li>
+          <li><div class="feat-check"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3.5 6L6.5 2" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg></div><span data-es="Todos los temas de color" data-en="All color themes">Todos los temas de color</span></li>
+        </ul>
+        <button class="plan-cta cta-primary" data-es="Obtener Pro" data-en="Get Pro">Obtener Pro</button>
+      </div>
+      <div class="plan reveal reveal-delay-3">
+        <div class="plan-name" data-es="Pro Mensual" data-en="Monthly Pro">Pro Mensual</div>
+        <div class="plan-price">$1.99</div>
+        <div class="plan-period" data-es="/ mes · Cancela cuando quieras" data-en="/ month · Cancel anytime">/ mes · Cancela cuando quieras</div>
+        <ul class="plan-feats">
+          <li><div class="feat-check"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3.5 6L6.5 2" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/></svg></div><span data-es="Todo lo de Pro Vitalicio" data-en="Everything in Lifetime Pro">Todo lo de Pro Vitalicio</span></li>
+          <li><div class="feat-check"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3.5 6L6.5 2" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/></svg></div><span data-es="Sin compromiso" data-en="No commitment">Sin compromiso</span></li>
+          <li><div class="feat-check"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3.5 6L6.5 2" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"/></svg></div><span data-es="Cancela en cualquier momento" data-en="Cancel at any time">Cancela en cualquier momento</span></li>
+        </ul>
+        <button class="plan-cta cta-ghost" data-es="Comenzar mensual" data-en="Start monthly">Comenzar mensual</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">ATOMIK</span>
+  <div class="footer-links">
+    <a href="privacy.html" class="footer-link" data-es="Privacidad" data-en="Privacy">Privacidad</a>
+    <a href="support.html" class="footer-link" data-es="Soporte"    data-en="Support">Soporte</a>
+    <a href="mailto:atomik.app.co@gmail.com" class="footer-link" data-es="Contacto" data-en="Contact">Contacto</a>
+  </div>
+  <div class="footer-copy" data-es="© 2026 ATOMIK · Basado en Hábitos Atómicos" data-en="© 2026 ATOMIK · Based on Atomic Habits">© 2026 ATOMIK · Basado en Hábitos Atómicos</div>
+</footer>
+
+<script>
+/* LANG */
+function setLang(lang) {
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+  document.querySelectorAll('[data-es]').forEach(el => {
+    const txt = el.getAttribute('data-' + lang);
+    if (!txt) return;
+    if (txt.includes('<')) el.innerHTML = txt; else el.textContent = txt;
+  });
+  document.documentElement.lang = lang;
+}
+
+/* PARALLAX */
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  const bg = document.getElementById('heroBg');
+  const o1 = document.querySelector('.orb1');
+  const o2 = document.querySelector('.orb2');
+  if (bg) bg.style.transform = `translateY(${y * 0.25}px)`;
+  if (o1) o1.style.transform = `translateY(${y * 0.14}px)`;
+  if (o2) o2.style.transform = `translateY(${-y * 0.09}px)`;
+  document.querySelectorAll('.orbit-dot').forEach((d, i) => {
+    d.style.transform = `translateY(${y * (0.04 + i * 0.015)}px)`;
+  });
+}, { passive: true });
+
+/* SCROLL REVEAL */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* CHAIN GRID */
+(function() {
+  const g = document.getElementById('chainGrid');
+  if (!g) return;
+  ['L','M','X','J','V','S','D'].forEach(l => {
+    const h = document.createElement('div');
+    h.style.cssText = 'font-size:10px;color:rgba(0,0,0,0.3);text-align:center;padding-bottom:4px;';
+    h.textContent = l; g.appendChild(h);
+  });
+  const p = [1,1,1,1,1,0,1, 1,1,1,1,0,1,1, 1,1,1,0,1,1,1, 1,1,1,1,1,2,1];
+  p.forEach((v, i) => {
+    const d = document.createElement('div');
+    d.className = 'chain-day ' + (v===1 ? 'done' : v===2 ? 'fail' : 'empty');
+    d.textContent = v===1 ? '✓' : v===2 ? '✗' : '';
+    if (i === p.length - 1) d.classList.add('today');
+    d.style.opacity = '0';
+    g.appendChild(d);
+    setTimeout(() => { d.style.transition = 'opacity 0.4s, transform 0.4s'; d.style.opacity = '1'; }, 600 + i * 45);
+  });
+})();
+
+/* LINE CHART */
+(function() {
+  const vals = [100, 100, 33, 0, 0, 0, 50];
+  const W = 400, H = 100;
+  const xs = vals.map((_, i) => Math.round((i / (vals.length - 1)) * W));
+  const ys = vals.map(v => Math.round(H - (v / 100) * H));
+  let d = `M ${xs[0]} ${ys[0]}`;
+  for (let i = 1; i < xs.length; i++) {
+    const cx = (xs[i-1] + xs[i]) / 2;
+    d += ` C ${cx} ${ys[i-1]}, ${cx} ${ys[i]}, ${xs[i]} ${ys[i]}`;
+  }
+  const lineEl = document.getElementById('lineP');
+  const areaEl = document.getElementById('areaP');
+  if (lineEl) lineEl.setAttribute('d', d);
+  if (areaEl) areaEl.setAttribute('d', d + ` L ${xs[xs.length-1]} ${H} L ${xs[0]} ${H} Z`);
+  const svgEl = document.getElementById('lineSvg');
+  if (svgEl) {
+    new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && lineEl) { lineEl.classList.add('draw'); }
+    }, { threshold: 0.3 }).observe(svgEl);
+  }
+})();
+
+/* BAR CHART */
+(function() {
+  const wrap = document.getElementById('barWrap');
+  const mrow = document.getElementById('barMonths');
+  if (!wrap || !mrow) return;
+  const months = ['jun','jul','ago','sep','oct','nov','dic','ene','feb','mar','abr','may'];
+  const vals   = [0,0,0,0,0,0,0,0,0,0,0,51];
+  vals.forEach((v, i) => {
+    const col = document.createElement('div');
+    col.className = 'bar-col';
+    const bar = document.createElement('div');
+    bar.className = 'bar-fill' + (v===0 ? ' dim' : '');
+    bar.style.cssText = `height:4px;transition:height 1s ${i*0.06}s cubic-bezier(0.16,1,0.3,1);`;
+    col.appendChild(bar); wrap.appendChild(col);
+    new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) { bar.style.height = Math.max(v, 4) + '%'; }
+    }, { threshold: 0.3 }).observe(bar);
+  });
+  months.forEach(m => {
+    const s = document.createElement('div');
+    s.className = 'bar-month'; s.textContent = m; mrow.appendChild(s);
+  });
+})();
+
+/* CALENDAR */
+(function() {
+  const g = document.getElementById('calGrid');
+  if (!g) return;
+  ['L','M','X','J','V','S','D'].forEach(h => {
+    const el = document.createElement('div');
+    el.style.cssText = 'font-size:10px;color:rgba(0,0,0,0.3);text-align:center;padding-bottom:4px;';
+    el.textContent = h; g.appendChild(el);
+  });
+  for (let i = 0; i < 4; i++) { const b = document.createElement('div'); b.style.background='transparent'; g.appendChild(b); }
+  const types = ['done','done','done','done','done','done','done','fail','done','fail','done','done','done','done','fail','fail','done','done','done','done','done','done','today'];
+  types.forEach(t => {
+    const d = document.createElement('div');
+    d.className = 'cal-day cal-' + t;
+    g.appendChild(d);
+  });
+})();
+
+/* MEDALS */
+(function() {
+  const track = document.getElementById('medalsTrack');
+  if (!track) return;
+  const medals = [
+    { icon:'leaf-outline',             n:'¡Primer paso!',   d:'Primera vez completado', days:null, u:true  },
+    { icon:'checkmark-circle-outline', n:'Nunca dos veces', d:'Fallaste y volviste',    days:null, u:true  },
+    { icon:'flame-outline',            n:'3 días seguidos', d:'3 consecutivos',         days:3,    u:false },
+    { icon:'star-outline',             n:'Una semana',      d:'7 días consecutivos',    days:7,    u:false },
+    { icon:'trophy-outline',           n:'21 días',         d:'Hábito en formación',    days:21,   u:false },
+    { icon:'medal-outline',            n:'Un mes',          d:'30 días imparable',      days:30,   u:false },
+    { icon:'ribbon-outline',           n:'66 días',         d:'Ya es automático',       days:66,   u:false },
+    { icon:'diamond-outline',          n:'100 días',        d:'Leyenda absoluta',       days:100,  u:false },
+    { icon:'shield-checkmark-outline', n:'Sin excusas',     d:'Sin ninguna falla',      days:null, u:false },
+  ];
+  medals.forEach((m, i) => {
+    const c = document.createElement('div');
+    c.className = 'medal-card ' + (m.u ? 'unlocked' : 'locked');
+    const iconColor = m.u ? 'var(--accent)' : 'rgba(0,0,0,0.25)';
+    c.innerHTML = `
+      <div class="medal-icon-box">
+        <ion-icon name="${m.icon}" style="font-size:28px;color:${iconColor};"></ion-icon>
+      </div>
+      ${m.days ? `<div class="medal-days">${m.days}d</div>` : ''}
+      <div class="medal-name">${m.n}</div>
+      <div class="medal-desc">${m.d}</div>
+    `;
+    c.style.cssText = 'opacity:0;transform:translateY(18px);';
+    track.appendChild(c);
+    setTimeout(() => {
+      c.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      c.style.opacity = '1';
+      c.style.transform = 'none';
+    }, 180 + i * 70);
+  });
+})();
+</script>
 </body>
 </html>
