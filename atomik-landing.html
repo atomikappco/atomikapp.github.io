@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule defer src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -17,7 +17,7 @@ html { scroll-behavior: smooth; }
   --card:    #FFFFFF;
   --surface: #EEEDE8;
   --text:    #1A1A1A;
-  --sub:     rgba(0,0,0,0.60);
+  --sub:     rgba(0,0,0,0.38);
   --border:  rgba(0,0,0,0.07);
   --accent:  #8B7FF5;
   --a10:     rgba(139,127,245,0.10);
@@ -26,7 +26,6 @@ html { scroll-behavior: smooth; }
   --green:   #4CAF7D;
   --font:    'Inter', sans-serif;
   --display: 'Outfit', sans-serif;
-  --star:    #FFBB38;
 }
 body { font-family: var(--font); background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
 
@@ -46,7 +45,7 @@ nav {
 .n-link:hover { color: var(--text); }
 .n-right { display: flex; align-items: center; gap: 14px; }
 .lang-pill { display: flex; background: var(--surface); border-radius: 8px; padding: 3px; gap: 2px; }
-.lang-btn { font-family: var(--font); font-size: 11px; font-weight: 500; padding: 8px 14px; border-radius: 6px; border: none; background: transparent; color: var(--sub); cursor: pointer; transition: all 0.2s; letter-spacing: 0.5px; min-height: 36px; }
+.lang-btn { font-family: var(--font); font-size: 11px; font-weight: 500; padding: 4px 11px; border-radius: 6px; border: none; background: transparent; color: var(--sub); cursor: pointer; transition: all 0.2s; letter-spacing: 0.5px; }
 .lang-btn.active { background: var(--card); color: var(--text); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
 .n-cta { font-family: var(--font); font-size: 13px; font-weight: 500; background: var(--accent); color: #fff; border: none; border-radius: 9px; padding: 8px 20px; cursor: pointer; transition: opacity 0.2s, transform 0.15s; text-decoration: none; }
 .n-cta:hover { opacity: 0.88; transform: translateY(-1px); }
@@ -73,11 +72,11 @@ nav {
 .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s 0.48s ease forwards; }
 .btn-store { display: inline-flex; align-items: center; gap: 10px; background: var(--text); color: #fff; border: none; border-radius: 14px; padding: 14px 24px; font-family: var(--font); cursor: pointer; text-decoration: none; transition: opacity 0.2s, transform 0.2s; }
 .btn-store:hover { opacity: 0.85; transform: translateY(-2px); }
-.btn-store-icon { display: block; flex-shrink: 0; }
+.btn-store-icon { font-size: 22px; }
 .btn-store-sup { font-size: 10px; opacity: 0.55; font-weight: 300; display: block; }
 .btn-store-name { font-size: 15px; font-weight: 500; display: block; line-height: 1.2; }
 .hero-proof { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 24px; font-size: 13px; color: var(--sub); opacity: 0; animation: fadeUp 0.8s 0.6s ease forwards; }
-.stars { color: var(--star); letter-spacing: 2px; }
+.stars { color: #FFBB38; letter-spacing: 2px; }
 .proof-sep { width: 1px; height: 14px; background: var(--border); }
 
 /* SCROLL REVEAL */
@@ -97,7 +96,6 @@ nav {
 .streak-section { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 100px 0; }
 .streak-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
 .chain-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
-.chain-header { font-size: 10px; color: rgba(0,0,0,0.55); text-align: center; padding-bottom: 4px; }
 .chain-day { aspect-ratio: 1; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; }
 .chain-day.done { background: var(--accent); color: #fff; }
 .chain-day.fail { background: #FDECEA; color: var(--red); }
@@ -112,13 +110,12 @@ nav {
 .identity-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
 .identity-section .section-label { color: rgba(139,127,245,0.8); }
 .identity-section .section-title { color: #fff; }
-.identity-section .section-sub { color: rgba(255,255,255,0.65); }
-.identity-cards { display: grid; grid-template-columns: 1.45fr 1fr; gap: 16px; }
-.identity-cards .id-card:first-child { grid-row: span 2; display: flex; flex-direction: column; justify-content: flex-end; }
+.identity-section .section-sub { color: rgba(255,255,255,0.35); }
+.identity-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .id-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 28px 24px; transition: background 0.3s, transform 0.3s; }
 .id-card:hover { background: rgba(255,255,255,0.07); transform: translateY(-3px); }
 .id-quote { font-family: var(--display); font-size: 18px; font-weight: 300; color: #fff; line-height: 1.5; margin-bottom: 16px; }
-.id-habit { font-size: 12px; color: rgba(255,255,255,0.65); display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+.id-habit { font-size: 12px; color: rgba(255,255,255,0.35); display: flex; align-items: center; gap: 8px; margin-top: 6px; }
 .id-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
 
 /* CHARTS */
@@ -229,7 +226,6 @@ footer { border-top: 1px solid var(--border); padding: 38px 48px; display: flex;
 /* RESPONSIVE */
 @media (max-width: 860px) {
   .streak-inner, .identity-cards, .chart-grid, .pricing-grid { grid-template-columns: 1fr; }
-  .identity-cards .id-card:first-child { grid-row: auto; }
   .pricing-inner { max-width: 360px; }
   footer { flex-direction: column; gap: 18px; text-align: center; padding: 28px 20px; }
 }
@@ -240,200 +236,6 @@ footer { border-top: 1px solid var(--border); padding: 38px 48px; display: flex;
   .streak-inner, .identity-inner, .chart-inner, .medals-inner, .pricing-inner { padding-left: 20px; padding-right: 20px; }
   .chart-grid { grid-template-columns: 1fr; }
 }
-
-/* === DESIGN IMPROVEMENTS === */
-
-/* DVH fix — eliminates iOS Safari layout jump */
-.hero { min-height: 100dvh; }
-
-/* Balanced headlines — no orphaned words */
-.section-title, .hero h1, .quote-text { text-wrap: balance; }
-
-/* Tabular numbers for stats and prices */
-.streak-stat-num, .plan-price, .medal-days { font-variant-numeric: tabular-nums; }
-
-/* Button press feedback */
-.btn-store:active { transform: scale(0.97) translateY(0) !important; }
-.n-cta:active     { transform: scale(0.97) !important; opacity: 1 !important; }
-.plan-cta:active  { transform: scale(0.98); }
-
-/* Accessible focus rings */
-:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: 6px;
-}
-
-/* Grain texture on hero — breaks digital flatness */
-.hero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.032;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 300px 300px;
-}
-
-/* Identity section — warmer dark + grain so it feels intentional */
-.identity-section {
-  background: #1B1916;
-  position: relative;
-  overflow: hidden;
-}
-.identity-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.045;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 300px 300px;
-}
-.identity-section::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(139,127,245,0.07) 0%, transparent 60%);
-}
-.identity-inner { position: relative; z-index: 1; }
-
-/* Quote section — ambient depth */
-.quote-section { position: relative; overflow: hidden; }
-.quote-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(139,127,245,0.055) 0%, transparent 70%);
-  pointer-events: none;
-}
-.quote-section > * { position: relative; z-index: 1; }
-
-/* Tinted card shadows on hover */
-.chart-card {
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
-}
-.chart-card:hover {
-  box-shadow: 0 8px 40px rgba(139,127,245,0.1);
-  border-color: rgba(139,127,245,0.14);
-}
-
-/* Featured pricing plan — depth through colored shadow */
-.plan.featured {
-  box-shadow: 0 24px 64px rgba(139,127,245,0.32);
-}
-.plan.featured:hover {
-  box-shadow: 0 32px 80px rgba(139,127,245,0.42);
-}
-
-/* Medal hover — tinted shadow */
-.medal-card:hover {
-  box-shadow: 0 16px 48px rgba(139,127,245,0.18) !important;
-}
-
-/* Nav active indicator */
-.n-link.is-active { color: var(--text); }
-
-/* Section label — remove AI eyebrow pattern (uppercase + tracking on every section) */
-.section-label {
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0;
-  text-transform: none;
-  color: var(--accent);
-  opacity: 0.85;
-  margin-bottom: 10px;
-}
-
-/* Browser reset for h2.section-title and p.section-sub */
-h2.section-title { margin: 0; font-size: inherit; }
-p.section-sub { margin-top: 0; }
-
-/* Streak stats divider */
-.streak-divider { width: 1px; background: var(--border); align-self: stretch; }
-
-/* Prefers-reduced-motion: content must always be visible */
-@media (prefers-reduced-motion: reduce) {
-  .reveal {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-  .hero-orb, .orbit-dot { animation: none !important; }
-  .orb1, .orb2 { animation: none !important; }
-  .line-path { transition: none !important; stroke-dashoffset: 0 !important; }
-  .bar-fill { transition: none !important; }
-}
-
-/* Mobile hamburger button */
-.n-hamburger {
-  display: none;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  flex-direction: column;
-  gap: 5px;
-  min-width: 44px;
-  min-height: 44px;
-  align-items: center;
-  justify-content: center;
-}
-.hb-line {
-  display: block;
-  width: 22px;
-  height: 1.5px;
-  background: var(--text);
-  border-radius: 2px;
-  transition: transform 0.22s ease, opacity 0.22s ease;
-}
-.n-hamburger[aria-expanded="true"] .hb-line:nth-child(1) { transform: translateY(3.3px) rotate(45deg); }
-.n-hamburger[aria-expanded="true"] .hb-line:nth-child(2) { transform: translateY(-3.3px) rotate(-45deg); }
-
-/* Mobile nav overlay */
-.mobile-nav {
-  display: none;
-  position: fixed;
-  top: 60px;
-  left: 0; right: 0;
-  background: rgba(247,246,242,0.97);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-bottom: 1px solid var(--border);
-  flex-direction: column;
-  padding: 4px 0 16px;
-  transform: translateY(-6px);
-  opacity: 0;
-  pointer-events: none;
-  transition: transform 0.22s ease, opacity 0.22s ease;
-  z-index: 190;
-}
-.mobile-nav.open {
-  transform: none;
-  opacity: 1;
-  pointer-events: auto;
-}
-.mobile-nav-link {
-  font-size: 17px;
-  font-weight: 300;
-  color: var(--text);
-  text-decoration: none;
-  padding: 14px 24px;
-  border-bottom: 1px solid var(--border);
-  transition: background 0.15s;
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-}
-.mobile-nav-link:last-child { border-bottom: none; }
-.mobile-nav-link:hover { background: var(--surface); }
-
-@media (max-width: 600px) {
-  .n-hamburger { display: flex; }
-  .mobile-nav { display: flex; }
-}
 </style>
 </head>
 <body>
@@ -441,7 +243,7 @@ p.section-sub { margin-top: 0; }
 <!-- NAV -->
 <nav>
   <a href="#" class="n-logo">
-    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
       <circle cx="14" cy="5.5" r="5" fill="url(#ng1)"/>
       <circle cx="8"  cy="16"  r="3.7" fill="url(#ng2)"/>
       <circle cx="20" cy="16"  r="3.7" fill="url(#ng2)"/>
@@ -463,22 +265,12 @@ p.section-sub { margin-top: 0; }
   </div>
   <div class="n-right">
     <div class="lang-pill">
-      <button class="lang-btn active" aria-pressed="true" onclick="setLang('es')">ES</button>
-      <button class="lang-btn" aria-pressed="false" onclick="setLang('en')">EN</button>
+      <button class="lang-btn active" onclick="setLang('es')">ES</button>
+      <button class="lang-btn"        onclick="setLang('en')">EN</button>
     </div>
     <a href="#descargar" class="n-cta" data-es="Descargar" data-en="Download">Descargar</a>
-    <button class="n-hamburger" id="hamburger" aria-label="Menú de navegación" aria-expanded="false" aria-controls="mobile-nav">
-      <span class="hb-line"></span>
-      <span class="hb-line"></span>
-    </button>
   </div>
 </nav>
-<div class="mobile-nav" id="mobile-nav" role="navigation" aria-label="Navegación móvil">
-  <a href="#racha"    class="mobile-nav-link" data-es="Racha"    data-en="Streak">Racha</a>
-  <a href="#progreso" class="mobile-nav-link" data-es="Progreso" data-en="Progress">Progreso</a>
-  <a href="#medallas" class="mobile-nav-link" data-es="Medallas" data-en="Medals">Medallas</a>
-  <a href="#precio"   class="mobile-nav-link" data-es="Precio"   data-en="Pricing">Precio</a>
-</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -498,17 +290,17 @@ p.section-sub { margin-top: 0; }
     <h1><span data-es="Pequeños hábitos.<br><strong>Resultados enormes.</strong>" data-en="Small habits.<br><strong>Enormous results.</strong>">Pequeños hábitos.<br><strong>Resultados enormes.</strong></span></h1>
     <p class="hero-sub" data-es="El sistema que realmente cambia tu identidad. No solo tu agenda." data-en="The system that truly changes your identity. Not just your schedule.">El sistema que realmente cambia tu identidad. No solo tu agenda.</p>
     <div class="hero-btns" id="descargar">
-      <a href="#" class="btn-store" aria-label="Descargar ATOMIK en el App Store">
-        <svg class="btn-store-icon" aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      <a href="#" class="btn-store">
+        <span class="btn-store-icon">🍎</span>
         <span><span class="btn-store-sup" data-es="Disponible en" data-en="Download on the">Disponible en</span><span class="btn-store-name">App Store</span></span>
       </a>
-      <a href="#" class="btn-store" aria-label="Descargar ATOMIK en Google Play">
-        <svg class="btn-store-icon" aria-hidden="true" viewBox="0 0 512 512" width="22" height="22" xmlns="http://www.w3.org/2000/svg"><path fill="#EA4335" d="M23.01 3.94 269.39 256 23.01 508.06A20 20 0 0 1 16 492V20A20 20 0 0 1 23.01 3.94z"/><path fill="#FBBC04" d="M345.67 180.35 89.31 32.27l-.1-.06 207.3 207.29z"/><path fill="#4285F4" d="M496 256a20 20 0 0 1-10.9 17.82L375.8 336l-79.29-80 79.3-80 109.29 62.18A20 20 0 0 1 496 256z"/><path fill="#34A853" d="M89.21 479.79l-.1.06 256.36-148.1-49.16-49.16z"/></svg>
+      <a href="#" class="btn-store">
+        <span class="btn-store-icon">▶</span>
         <span><span class="btn-store-sup" data-es="Disponible en" data-en="Get it on">Disponible en</span><span class="btn-store-name">Google Play</span></span>
       </a>
     </div>
     <div class="hero-proof">
-      <span class="stars" role="img" aria-label="5 estrellas">★★★★★</span>
+      <span class="stars">★★★★★</span>
       <span data-es="4.9 · App Store" data-en="4.9 · App Store">4.9 · App Store</span>
       <div class="proof-sep"></div>
       <span data-es="Gratis · Pro desde $1.99" data-en="Free · Pro from $1.99">Gratis · Pro desde $1.99</span>
@@ -520,15 +312,15 @@ p.section-sub { margin-top: 0; }
 <div class="streak-section" id="racha">
   <div class="streak-inner">
     <div>
-      <div class="section-label reveal"            data-es="Racha diaria"   data-en="Daily streak" aria-hidden="true">Racha diaria</div>
-      <h2 class="section-title reveal reveal-delay-1" data-es="Nunca falles<br>dos veces seguidas." data-en="Never fail<br>twice in a row.">Nunca falles<br>dos veces seguidas.</h2>
-      <p class="section-sub reveal reveal-delay-2" data-es="Cada día que completas un hábito refuerzas quién eres. Un registro visual de tu consistencia, no de tu perfección." data-en="Every day you complete a habit, you reinforce who you are. A visual record of your consistency, not your perfection.">Cada día que completas un hábito refuerzas quién eres. Un registro visual de tu consistencia, no de tu perfección.</p>
+      <div class="section-label reveal"            data-es="Racha diaria"   data-en="Daily streak">Racha diaria</div>
+      <div class="section-title reveal reveal-delay-1" data-es="Nunca falles<br>dos veces seguidas." data-en="Never fail<br>twice in a row.">Nunca falles<br>dos veces seguidas.</div>
+      <div class="section-sub reveal reveal-delay-2" data-es="Cada día que completas un hábito refuerzas quién eres. Un registro visual de tu consistencia, no de tu perfección." data-en="Every day you complete a habit, you reinforce who you are. A visual record of your consistency, not your perfection.">Cada día que completas un hábito refuerzas quién eres. Un registro visual de tu consistencia, no de tu perfección.</div>
       <div class="streak-stats reveal reveal-delay-3">
         <div>
           <div class="streak-stat-num">21</div>
           <div class="streak-stat-label" data-es="días de racha" data-en="day streak">días de racha</div>
         </div>
-        <div class="streak-divider"></div>
+        <div style="width:1px;background:var(--border);"></div>
         <div>
           <div class="streak-stat-num" style="color:var(--text);">87%</div>
           <div class="streak-stat-label" data-es="tasa de éxito" data-en="success rate">tasa de éxito</div>
@@ -544,9 +336,9 @@ p.section-sub { margin-top: 0; }
 <!-- IDENTITY -->
 <div class="identity-section">
   <div class="identity-inner">
-    <div class="section-label reveal"                data-es="Identidad"    data-en="Identity" aria-hidden="true">Identidad</div>
-    <h2 class="section-title reveal reveal-delay-1" data-es="No se trata de lo que haces.<br>Se trata de quién eres." data-en="It's not about what you do.<br>It's about who you are.">No se trata de lo que haces.<br>Se trata de quién eres.</h2>
-    <p class="section-sub reveal reveal-delay-2"   data-es="Cada hábito parte de una declaración de identidad. El hábito refuerza la persona." data-en="Every habit starts from an identity statement. The habit reinforces the person.">Cada hábito parte de una declaración de identidad. El hábito refuerza la persona.</p>
+    <div class="section-label reveal"                data-es="Identidad"    data-en="Identity">Identidad</div>
+    <div class="section-title reveal reveal-delay-1" data-es="No se trata de lo que haces.<br>Se trata de quién eres." data-en="It's not about what you do.<br>It's about who you are.">No se trata de lo que haces.<br>Se trata de quién eres.</div>
+    <div class="section-sub reveal reveal-delay-2"   data-es="Cada hábito parte de una declaración de identidad. El hábito refuerza la persona." data-en="Every habit starts from an identity statement. The habit reinforces the person.">Cada hábito parte de una declaración de identidad. El hábito refuerza la persona.</div>
     <div class="identity-cards">
       <div class="id-card reveal reveal-delay-1">
         <div class="id-quote" data-es='"Soy una persona saludable"' data-en='"I am a healthy person"'>"Soy una persona saludable"</div>
@@ -570,9 +362,9 @@ p.section-sub { margin-top: 0; }
 <!-- CHARTS -->
 <div class="chart-section" id="progreso">
   <div class="chart-inner">
-    <div class="section-label reveal"                data-es="Estadísticas"  data-en="Statistics" aria-hidden="true">Estadísticas</div>
-    <h2 class="section-title reveal reveal-delay-1" data-es="Tu progreso,<br>en números reales." data-en="Your progress,<br>in real numbers.">Tu progreso,<br>en números reales.</h2>
-    <p class="section-sub reveal reveal-delay-2"   data-es="Vistas diaria, semanal, mensual y anual. Porque los datos honestos son la única forma de mejorar." data-en="Daily, weekly, monthly, and yearly views. Because honest data is the only way to improve.">Vistas diaria, semanal, mensual y anual. Porque los datos honestos son la única forma de mejorar.</p>
+    <div class="section-label reveal"                data-es="Estadísticas"  data-en="Statistics">Estadísticas</div>
+    <div class="section-title reveal reveal-delay-1" data-es="Tu progreso,<br>en números reales." data-en="Your progress,<br>in real numbers.">Tu progreso,<br>en números reales.</div>
+    <div class="section-sub reveal reveal-delay-2"   data-es="Vistas diaria, semanal, mensual y anual. Porque los datos honestos son la única forma de mejorar." data-en="Daily, weekly, monthly, and yearly views. Because honest data is the only way to improve.">Vistas diaria, semanal, mensual y anual. Porque los datos honestos son la única forma de mejorar.</div>
     <div class="chart-grid">
       <!-- Line -->
       <div class="chart-card reveal reveal-delay-1">
@@ -588,13 +380,13 @@ p.section-sub { margin-top: 0; }
             </defs>
             <path id="areaP" fill="url(#aGrad)"/>
             <path id="lineP" class="line-path"/>
-            <text x="0"   y="118" fill="rgba(0,0,0,0.55)" font-size="11" font-family="Inter,sans-serif">Dom</text>
-            <text x="55"  y="118" fill="rgba(0,0,0,0.55)" font-size="11" font-family="Inter,sans-serif">Lun</text>
-            <text x="110" y="118" fill="rgba(0,0,0,0.55)" font-size="11" font-family="Inter,sans-serif">Mar</text>
-            <text x="163" y="118" fill="rgba(0,0,0,0.55)" font-size="11" font-family="Inter,sans-serif">Mié</text>
-            <text x="216" y="118" fill="rgba(0,0,0,0.55)" font-size="11" font-family="Inter,sans-serif">Jue</text>
-            <text x="269" y="118" fill="rgba(0,0,0,0.55)" font-size="11" font-family="Inter,sans-serif">Vie</text>
-            <text x="318" y="118" fill="rgba(0,0,0,0.55)" font-size="11" font-family="Inter,sans-serif">Sáb</text>
+            <text x="0"   y="118" fill="rgba(0,0,0,0.28)" font-size="11" font-family="Inter,sans-serif">Dom</text>
+            <text x="55"  y="118" fill="rgba(0,0,0,0.28)" font-size="11" font-family="Inter,sans-serif">Lun</text>
+            <text x="110" y="118" fill="rgba(0,0,0,0.28)" font-size="11" font-family="Inter,sans-serif">Mar</text>
+            <text x="163" y="118" fill="rgba(0,0,0,0.28)" font-size="11" font-family="Inter,sans-serif">Mié</text>
+            <text x="216" y="118" fill="rgba(0,0,0,0.28)" font-size="11" font-family="Inter,sans-serif">Jue</text>
+            <text x="269" y="118" fill="rgba(0,0,0,0.28)" font-size="11" font-family="Inter,sans-serif">Vie</text>
+            <text x="318" y="118" fill="rgba(0,0,0,0.28)" font-size="11" font-family="Inter,sans-serif">Sáb</text>
           </svg>
         </div>
       </div>
@@ -628,7 +420,7 @@ p.section-sub { margin-top: 0; }
             <circle cx="60" cy="60" r="46" fill="none" stroke="rgba(224,82,82,0.45)" stroke-width="13"
               stroke-dasharray="289" stroke-dashoffset="217" stroke-linecap="round" transform="rotate(145 60 60)"/>
             <text x="60" y="55" text-anchor="middle" font-size="15" font-family="Outfit,sans-serif" font-weight="300" fill="var(--accent)">75%</text>
-            <text x="60" y="69" text-anchor="middle" font-size="9" font-family="Inter,sans-serif" fill="rgba(0,0,0,0.55)">completado</text>
+            <text x="60" y="69" text-anchor="middle" font-size="9" font-family="Inter,sans-serif" fill="rgba(0,0,0,0.35)">completado</text>
           </svg>
           <div class="donut-legend">
             <div class="donut-item"><div class="donut-dot" style="background:var(--accent);"></div><span class="donut-item-label" data-es="Logros" data-en="Achieved">Logros</span><span class="donut-item-val">3</span></div>
@@ -644,9 +436,9 @@ p.section-sub { margin-top: 0; }
 <!-- MEDALS -->
 <div class="medals-section" id="medallas">
   <div class="medals-inner">
-    <div class="section-label reveal"                data-es="Medallas"     data-en="Medals" aria-hidden="true">Medallas</div>
-    <h2 class="section-title reveal reveal-delay-1" data-es="Celebra cada<br>hito de constancia." data-en="Celebrate every<br>consistency milestone.">Celebra cada<br>hito de constancia.</h2>
-    <p class="section-sub reveal reveal-delay-2"   data-es="9 medallas desbloqueables en hitos científicamente fundamentados. Porque la constancia merece ser celebrada." data-en="9 unlockable medals at scientifically grounded milestones. Because consistency deserves to be celebrated.">9 medallas desbloqueables en hitos científicamente fundamentados. Porque la constancia merece ser celebrada.</p>
+    <div class="section-label reveal"                data-es="Medallas"     data-en="Medals">Medallas</div>
+    <div class="section-title reveal reveal-delay-1" data-es="Celebra cada<br>hito de constancia." data-en="Celebrate every<br>consistency milestone.">Celebra cada<br>hito de constancia.</div>
+    <div class="section-sub reveal reveal-delay-2"   data-es="9 medallas desbloqueables en hitos científicamente fundamentados. Porque la constancia merece ser celebrada." data-en="9 unlockable medals at scientifically grounded milestones. Because consistency deserves to be celebrated.">9 medallas desbloqueables en hitos científicamente fundamentados. Porque la constancia merece ser celebrada.</div>
     <div class="medals-track reveal reveal-delay-3" id="medalsTrack"></div>
   </div>
 </div>
@@ -661,9 +453,9 @@ p.section-sub { margin-top: 0; }
 <!-- PRICING -->
 <div class="pricing-section" id="precio">
   <div class="pricing-inner">
-    <div class="section-label reveal"                data-es="Precio"         data-en="Pricing" aria-hidden="true">Precio</div>
-    <h2 class="section-title reveal reveal-delay-1" data-es="Simple y honesto." data-en="Simple and honest.">Simple y honesto.</h2>
-    <p class="section-sub reveal reveal-delay-2"   data-es="Empieza gratis. Mejora cuando quieras." data-en="Start free. Upgrade whenever you want.">Empieza gratis. Mejora cuando quieras.</p>
+    <div class="section-label reveal"                data-es="Precio"         data-en="Pricing">Precio</div>
+    <div class="section-title reveal reveal-delay-1" data-es="Simple y honesto." data-en="Simple and honest.">Simple y honesto.</div>
+    <div class="section-sub reveal reveal-delay-2"   data-es="Empieza gratis. Mejora cuando quieras." data-en="Start free. Upgrade whenever you want.">Empieza gratis. Mejora cuando quieras.</div>
     <div class="pricing-grid">
       <div class="plan reveal reveal-delay-1">
         <div class="plan-name" data-es="Gratis" data-en="Free">Gratis</div>
@@ -709,9 +501,9 @@ p.section-sub { margin-top: 0; }
 <footer>
   <span class="footer-logo">ATOMIK</span>
   <div class="footer-links">
-    <a href="privacy.html" class="footer-link" data-es="Privacidad" data-en="Privacy">Privacidad</a>
-    <a href="support.html" class="footer-link" data-es="Soporte" data-en="Support">Soporte</a>
-    <a href="mailto:atomik.app.co@gmail.com" class="footer-link" data-es="Contacto" data-en="Contact">Contacto</a>
+    <a href="#" class="footer-link" data-es="Privacidad" data-en="Privacy">Privacidad</a>
+    <a href="#" class="footer-link" data-es="Términos"   data-en="Terms">Términos</a>
+    <a href="#" class="footer-link" data-es="Contacto"   data-en="Contact">Contacto</a>
   </div>
   <div class="footer-copy" data-es="© 2026 ATOMIK · Basado en Hábitos Atómicos" data-en="© 2026 ATOMIK · Based on Atomic Habits">© 2026 ATOMIK · Basado en Hábitos Atómicos</div>
 </footer>
@@ -719,22 +511,15 @@ p.section-sub { margin-top: 0; }
 <script>
 /* LANG */
 function setLang(lang) {
-  document.querySelectorAll('.lang-btn').forEach(b => {
-    const active = b.getAttribute('onclick') === `setLang('${lang}')`;
-    b.classList.toggle('active', active);
-    b.setAttribute('aria-pressed', active ? 'true' : 'false');
-  });
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
   document.querySelectorAll('[data-es]').forEach(el => {
     const txt = el.getAttribute('data-' + lang);
     if (!txt) return;
     if (txt.includes('<')) el.innerHTML = txt; else el.textContent = txt;
   });
   document.documentElement.lang = lang;
-  try { localStorage.setItem('atomik-lang', lang); } catch(e) {}
 }
-(function() {
-  try { const s = localStorage.getItem('atomik-lang'); if (s && s !== 'es') setLang(s); } catch(e) {}
-})();
 
 /* PARALLAX */
 window.addEventListener('scroll', () => {
@@ -762,14 +547,13 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   if (!g) return;
   ['L','M','X','J','V','S','D'].forEach(l => {
     const h = document.createElement('div');
-    h.className = 'chain-header';
+    h.style.cssText = 'font-size:10px;color:rgba(0,0,0,0.3);text-align:center;padding-bottom:4px;';
     h.textContent = l; g.appendChild(h);
   });
   const p = [1,1,1,1,1,0,1, 1,1,1,1,0,1,1, 1,1,1,0,1,1,1, 1,1,1,1,1,2,1];
   p.forEach((v, i) => {
     const d = document.createElement('div');
     d.className = 'chain-day ' + (v===1 ? 'done' : v===2 ? 'fail' : 'empty');
-    d.setAttribute('aria-label', v===1 ? 'Día completado' : v===2 ? 'Día no completado' : 'Sin datos');
     d.textContent = v===1 ? '✓' : v===2 ? '✗' : '';
     if (i === p.length - 1) d.classList.add('today');
     d.style.opacity = '0';
@@ -808,7 +592,6 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   if (!wrap || !mrow) return;
   const months = ['jun','jul','ago','sep','oct','nov','dic','ene','feb','mar','abr','may'];
   const vals   = [0,0,0,0,0,0,0,0,0,0,0,51];
-  const bars = [];
   vals.forEach((v, i) => {
     const col = document.createElement('div');
     col.className = 'bar-col';
@@ -816,11 +599,10 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
     bar.className = 'bar-fill' + (v===0 ? ' dim' : '');
     bar.style.cssText = `height:4px;transition:height 1s ${i*0.06}s cubic-bezier(0.16,1,0.3,1);`;
     col.appendChild(bar); wrap.appendChild(col);
-    bars.push({ bar, v });
+    new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) { bar.style.height = Math.max(v, 4) + '%'; }
+    }, { threshold: 0.3 }).observe(bar);
   });
-  new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) bars.forEach(({ bar, v }) => { bar.style.height = Math.max(v, 4) + '%'; });
-  }, { threshold: 0.3 }).observe(wrap);
   months.forEach(m => {
     const s = document.createElement('div');
     s.className = 'bar-month'; s.textContent = m; mrow.appendChild(s);
@@ -843,45 +625,6 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
     d.className = 'cal-day cal-' + t;
     g.appendChild(d);
   });
-})();
-
-/* MOBILE NAV */
-(function() {
-  const hamburger = document.getElementById('hamburger');
-  const mobileNav = document.getElementById('mobile-nav');
-  if (!hamburger || !mobileNav) return;
-  hamburger.addEventListener('click', () => {
-    const isOpen = mobileNav.classList.toggle('open');
-    hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-  });
-  mobileNav.querySelectorAll('.mobile-nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileNav.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-    });
-  });
-  document.addEventListener('click', e => {
-    if (!hamburger.contains(e.target) && !mobileNav.contains(e.target)) {
-      mobileNav.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-    }
-  });
-})();
-
-/* NAV ACTIVE STATE */
-(function() {
-  const links = document.querySelectorAll('.n-link[href^="#"]');
-  const sections = [...links].map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        links.forEach(l => l.classList.remove('is-active'));
-        const active = [...links].find(l => l.getAttribute('href') === '#' + e.target.id);
-        if (active) active.classList.add('is-active');
-      }
-    });
-  }, { rootMargin: '-40% 0px -55% 0px' });
-  sections.forEach(s => io.observe(s));
 })();
 
 /* MEDALS */
