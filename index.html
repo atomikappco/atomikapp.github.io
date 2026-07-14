@@ -4,7 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ATOMIK — Hábitos que cambian tu identidad</title>
-<meta name="description" content="La app de hábitos basada en Hábitos Atómicos de James Clear.">
+<meta name="description" content="La app de hábitos que transforma pequeñas acciones en grandes resultados.">
+<meta property="og:title" content="ATOMIK — Hábitos que cambian tu identidad">
+<meta property="og:description" content="La app de hábitos que transforma pequeñas acciones en grandes resultados.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://atomikapp.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ATOMIK — Hábitos que cambian tu identidad">
+<meta name="twitter:description" content="La app de hábitos que transforma pequeñas acciones en grandes resultados.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -381,6 +390,19 @@ footer { border-top: 1px solid var(--border); padding: 38px 48px; display: flex;
 @keyframes medalIn    { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
 @keyframes nudgeRight { 0%,100% { transform:translateX(0); } 50% { transform:translateX(5px); } }
 
+/* ── FAQ ── */
+.faq-section { padding: 110px 0; background: var(--bg); border-top: 1px solid var(--border); }
+.faq-inner { max-width: 720px; margin: 0 auto; padding: 0 40px; }
+.faq-list { margin-top: 48px; display: flex; flex-direction: column; gap: 2px; }
+.faq-item { border-radius: 14px; overflow: hidden; background: var(--card); border: 1px solid var(--border); margin-bottom: 2px; }
+.faq-q { width: 100%; background: none; border: none; padding: 22px 24px; font-family: var(--font); font-size: 15px; font-weight: 400; color: var(--text); text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; transition: background 0.2s; }
+.faq-q:hover { background: var(--surface); }
+.faq-arrow { width: 18px; height: 18px; flex-shrink: 0; color: var(--accent); transition: transform 0.3s var(--ease); }
+.faq-item.open .faq-arrow { transform: rotate(45deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s var(--ease), padding 0.3s; padding: 0 24px; font-size: 14px; color: var(--sub); line-height: 1.7; }
+.faq-item.open .faq-a { max-height: 200px; padding: 0 24px 20px; }
+@media (max-width: 600px) { .faq-inner { padding-left: 20px; padding-right: 20px; } }
+
 /* ── REDUCED MOTION ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
@@ -448,7 +470,7 @@ footer { border-top: 1px solid var(--border); padding: 38px 48px; display: flex;
   <div class="hero-content" id="heroContent">
     <div class="hero-badge">
       <span class="pulse-dot"></span>
-      <span data-es="Basado en Hábitos Atómicos" data-en="Based on Atomic Habits">Basado en Hábitos Atómicos</span>
+      <span data-es="Ciencia del comportamiento" data-en="Behavioral science">Ciencia del comportamiento</span>
     </div>
     <h1><span data-es="Pequeños hábitos.<br><strong>Resultados enormes.</strong>" data-en="Small habits.<br><strong>Enormous results.</strong>">Pequeños hábitos.<br><strong>Resultados enormes.</strong></span></h1>
     <p class="hero-sub" data-es="El sistema que realmente cambia tu identidad. No solo tu agenda." data-en="The system that truly changes your identity. Not just your schedule.">El sistema que realmente cambia tu identidad. No solo tu agenda.</p>
@@ -470,8 +492,9 @@ footer { border-top: 1px solid var(--border); padding: 38px 48px; display: flex;
       </a>
     </div>
     <div class="hero-proof">
-      <span class="stars">★★★★★</span>
-      <span data-es="4.9 · App Store" data-en="4.9 · App Store">4.9 · App Store</span>
+      <span data-es="Próximamente en" data-en="Coming soon to">Próximamente en</span>
+      <div class="proof-sep"></div>
+      <span data-es="App Store y Google Play" data-en="App Store and Google Play">App Store y Google Play</span>
       <div class="proof-sep"></div>
       <span data-es="Gratis · Pro desde $1.99" data-en="Free · Pro from $1.99">Gratis · Pro desde $1.99</span>
     </div>
@@ -613,7 +636,7 @@ footer { border-top: 1px solid var(--border); padding: 38px 48px; display: flex;
   <div class="medals-inner">
     <div class="section-label reveal"                data-es="Medallas" data-en="Medals">Medallas</div>
     <div class="section-title reveal reveal-delay-1" data-es="Celebra cada<br>hito de constancia." data-en="Celebrate every<br>consistency milestone.">Celebra cada<br>hito de constancia.</div>
-    <div class="section-sub reveal reveal-delay-2"   data-es="9 medallas desbloqueables en hitos científicamente fundamentados." data-en="9 unlockable medals at scientifically grounded milestones.">9 medallas desbloqueables en hitos científicamente fundamentados.</div>
+    <div class="section-sub reveal reveal-delay-2"   data-es="9 medallas desbloqueables en los hitos clave de la psicología del hábito." data-en="9 unlockable medals at the key milestones of habit psychology.">9 medallas desbloqueables en los hitos clave de la psicología del hábito.</div>
     <div class="medals-track" id="medalsTrack"></div>
     <div class="medals-hint reveal">
       <ion-icon name="arrow-forward-outline"></ion-icon>
@@ -626,8 +649,8 @@ footer { border-top: 1px solid var(--border); padding: 38px 48px; display: flex;
 <div class="quote-section reveal">
   <div class="quote-orb" id="quoteOrb"></div>
   <div class="quote-mark">"</div>
-  <div class="quote-text" data-es='"Cada acción que tomas es un voto para el tipo de persona que deseas ser."' data-en='"Every action you take is a vote for the type of person you wish to become."'>"Cada acción que tomas es un voto para el tipo de persona que deseas ser."</div>
-  <div class="quote-author">— James Clear, Hábitos Atómicos · Cap. 3</div>
+  <div class="quote-text" data-es='"Somos lo que hacemos repetidamente. La excelencia no es un acto, sino un hábito."' data-en='"We are what we repeatedly do. Excellence, then, is not an act but a habit."'>"Somos lo que hacemos repetidamente. La excelencia no es un acto, sino un hábito."</div>
+  <div class="quote-author">— Aristóteles</div>
 </div>
 
 <!-- PRICING -->
@@ -677,15 +700,60 @@ footer { border-top: 1px solid var(--border); padding: 38px 48px; display: flex;
   </div>
 </div>
 
+<!-- FAQ -->
+<div class="faq-section">
+  <div class="faq-inner">
+    <div class="section-label reveal" data-es="Preguntas frecuentes" data-en="FAQ">Preguntas frecuentes</div>
+    <div class="section-title reveal reveal-delay-1" data-es="Todo lo que<br>necesitas saber." data-en="Everything you<br>need to know.">Todo lo que<br>necesitas saber.</div>
+    <div class="faq-list reveal reveal-delay-2">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-es="¿Funciona sin conexión a internet?" data-en="Does it work offline?">¿Funciona sin conexión a internet?</span>
+          <svg class="faq-arrow" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3v12M3 9h12"/></svg>
+        </button>
+        <div class="faq-a" data-es="Sí. Todos los datos se guardan localmente en tu dispositivo. No necesitas internet para registrar ni consultar tus hábitos." data-en="Yes. All data is saved locally on your device. You don't need internet to log or view your habits.">Sí. Todos los datos se guardan localmente en tu dispositivo. No necesitas internet para registrar ni consultar tus hábitos.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-es="¿Mis datos son privados?" data-en="Is my data private?">¿Mis datos son privados?</span>
+          <svg class="faq-arrow" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3v12M3 9h12"/></svg>
+        </button>
+        <div class="faq-a" data-es="Completamente. ATOMIK no requiere cuenta ni envía datos a servidores externos. Todo queda en tu teléfono." data-en="Completely. ATOMIK requires no account and sends no data to external servers. Everything stays on your phone.">Completamente. ATOMIK no requiere cuenta ni envía datos a servidores externos. Todo queda en tu teléfono.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-es="¿Puedo usar la app en más de un dispositivo?" data-en="Can I use the app on multiple devices?">¿Puedo usar la app en más de un dispositivo?</span>
+          <svg class="faq-arrow" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3v12M3 9h12"/></svg>
+        </button>
+        <div class="faq-a" data-es="Actualmente los datos se guardan en el dispositivo. La sincronización entre dispositivos está en nuestra hoja de ruta próxima." data-en="Data is currently saved per device. Cross-device sync is on our near-term roadmap.">Actualmente los datos se guardan en el dispositivo. La sincronización entre dispositivos está en nuestra hoja de ruta próxima.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-es="¿Puedo cancelar el plan mensual?" data-en="Can I cancel the monthly plan?">¿Puedo cancelar el plan mensual?</span>
+          <svg class="faq-arrow" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3v12M3 9h12"/></svg>
+        </button>
+        <div class="faq-a" data-es="Sí, en cualquier momento desde la configuración de tu cuenta en App Store o Google Play. Sin penalizaciones." data-en="Yes, at any time from your App Store or Google Play account settings. No penalties.">Sí, en cualquier momento desde la configuración de tu cuenta en App Store o Google Play. Sin penalizaciones.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-es="¿Qué diferencia hay entre el plan gratuito y Pro?" data-en="What's the difference between Free and Pro?">¿Qué diferencia hay entre el plan gratuito y Pro?</span>
+          <svg class="faq-arrow" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3v12M3 9h12"/></svg>
+        </button>
+        <div class="faq-a" data-es="El plan gratuito incluye hasta 3 hábitos, racha y medallas básicas. Pro desbloquea hábitos ilimitados, estadísticas avanzadas, todas las medallas, temas de color y bloqueo biométrico." data-en="The free plan includes up to 3 habits, streaks, and basic medals. Pro unlocks unlimited habits, advanced stats, all medals, color themes, and biometric lock.">El plan gratuito incluye hasta 3 hábitos, racha y medallas básicas. Pro desbloquea hábitos ilimitados, estadísticas avanzadas, todas las medallas, temas de color y bloqueo biométrico.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <span class="footer-logo">ATOMIK</span>
   <div class="footer-links">
-    <a href="#" class="footer-link" data-es="Privacidad" data-en="Privacy">Privacidad</a>
-    <a href="#" class="footer-link" data-es="Términos"   data-en="Terms">Términos</a>
-    <a href="#" class="footer-link" data-es="Contacto"   data-en="Contact">Contacto</a>
+    <a href="privacy.html" class="footer-link" data-es="Privacidad" data-en="Privacy">Privacidad</a>
+    <a href="support.html" class="footer-link" data-es="Soporte"    data-en="Support">Soporte</a>
+    <a href="mailto:joguic@gmail.com" class="footer-link" data-es="Contacto" data-en="Contact">Contacto</a>
   </div>
-  <div class="footer-copy" data-es="© 2026 ATOMIK · Basado en Hábitos Atómicos" data-en="© 2026 ATOMIK · Based on Atomic Habits">© 2026 ATOMIK · Basado en Hábitos Atómicos</div>
+  <div class="footer-copy" data-es="© 2026 ATOMIK" data-en="© 2026 ATOMIK">© 2026 ATOMIK</div>
 </footer>
 
 <script>
@@ -830,6 +898,14 @@ function buildMarquee(lang) {
   }
 }
 buildMarquee('es');
+
+/* ── FAQ ACCORDION ── */
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
 
 /* ── CHAIN GRID (viewport-triggered) ── */
 (function() {

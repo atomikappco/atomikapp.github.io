@@ -4,11 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ATOMIK — Hábitos que cambian tu identidad</title>
-<meta name="description" content="La app de hábitos basada en Hábitos Atómicos de James Clear.">
+<meta name="description" content="La app de hábitos que transforma pequeñas acciones en grandes resultados.">
+<meta property="og:title" content="ATOMIK — Hábitos que cambian tu identidad">
+<meta property="og:description" content="La app de hábitos que transforma pequeñas acciones en grandes resultados.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://atomikapp.com/">
+<meta property="og:image" content="https://atomikapp.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ATOMIK — Hábitos que cambian tu identidad">
+<meta name="twitter:description" content="La app de hábitos que transforma pequeñas acciones en grandes resultados.">
+<meta name="twitter:image" content="https://atomikapp.com/og-image.png">
+<link rel="canonical" href="https://atomikapp.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<!-- Ionicons via jsdelivr (production-grade CDN) -->
+<script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -17,7 +30,7 @@ html { scroll-behavior: smooth; }
   --card:    #FFFFFF;
   --surface: #EEEDE8;
   --text:    #1A1A1A;
-  --sub:     rgba(0,0,0,0.38);
+  --sub:     rgba(0,0,0,0.56);
   --border:  rgba(0,0,0,0.07);
   --accent:  #8B7FF5;
   --a10:     rgba(139,127,245,0.10);
@@ -28,6 +41,13 @@ html { scroll-behavior: smooth; }
   --ease:    cubic-bezier(0.16, 1, 0.3, 1);
 }
 body { font-family: var(--font); background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+/* ── FOCUS VISIBLE ── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
 
 /* ── SCROLL PROGRESS ── */
 .scroll-progress {
@@ -65,6 +85,67 @@ nav.scrolled { border-bottom-color: var(--border); }
 .lang-btn.active { background: var(--card); color: var(--text); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
 .n-cta { font-family: var(--font); font-size: 13px; font-weight: 500; background: var(--accent); color: #fff; border: none; border-radius: 9px; padding: 8px 20px; cursor: pointer; transition: transform 0.25s var(--ease), box-shadow 0.25s; text-decoration: none; }
 .n-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(139,127,245,0.35); }
+
+/* ── HAMBURGER ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.hamburger:hover { background: var(--surface); }
+.hamburger span {
+  display: block;
+  width: 20px;
+  height: 1.5px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.3s var(--ease), opacity 0.2s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ── MOBILE NAV OVERLAY ── */
+.mobile-nav {
+  position: fixed; top: 60px; left: 0; right: 0; z-index: 199;
+  background: rgba(247,246,242,0.97);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+  flex-direction: column;
+  padding: 8px 20px 24px;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity 0.25s var(--ease), transform 0.3s var(--ease), visibility 0.25s;
+  display: none; /* off on desktop */
+}
+.mobile-nav.open {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.mobile-nav a {
+  font-size: 17px;
+  font-family: var(--display);
+  font-weight: 300;
+  color: var(--text);
+  text-decoration: none;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+  display: block;
+  transition: color 0.2s;
+}
+.mobile-nav a:last-child { border-bottom: none; }
+.mobile-nav a:hover { color: var(--accent); }
 
 /* ── HERO ── */
 .hero {
@@ -142,6 +223,13 @@ nav.scrolled { border-bottom-color: var(--border); }
 }
 .btn-store:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 16px 40px rgba(0,0,0,0.18); }
 .btn-store:hover::before { transform: translateX(100%); }
+/* Coming soon state */
+.btn-store.btn-soon {
+  opacity: 0.68;
+  cursor: default;
+}
+.btn-store.btn-soon:hover { transform: none; box-shadow: none; }
+.btn-store.btn-soon:hover::before { transform: translateX(-100%); }
 .btn-store-icon { font-size: 22px; }
 .btn-store-svg { flex-shrink: 0; color: #fff; }
 .btn-store-sup { font-size: 10px; opacity: 0.55; font-weight: 300; display: block; }
@@ -222,7 +310,7 @@ nav.scrolled { border-bottom-color: var(--border); }
 .identity-section .section-label { color: rgba(139,127,245,0.85); }
 .identity-section .section-label::before { background: rgba(139,127,245,0.85); }
 .identity-section .section-title { color: #fff; }
-.identity-section .section-sub { color: rgba(255,255,255,0.35); }
+.identity-section .section-sub { color: rgba(255,255,255,0.45); }
 .identity-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .id-card {
   background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
@@ -238,7 +326,7 @@ nav.scrolled { border-bottom-color: var(--border); }
 .id-card:hover { background: rgba(255,255,255,0.07); transform: translateY(-5px); border-color: rgba(139,127,245,0.25); }
 .id-card:hover::before { opacity: 1; }
 .id-quote { font-family: var(--display); font-size: 18px; font-weight: 300; color: #fff; line-height: 1.5; margin-bottom: 16px; }
-.id-habit { font-size: 12px; color: rgba(255,255,255,0.35); display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+.id-habit { font-size: 12px; color: rgba(255,255,255,0.45); display: flex; align-items: center; gap: 8px; margin-top: 6px; }
 .id-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
 
 /* ── CHARTS ── */
@@ -343,14 +431,14 @@ nav.scrolled { border-bottom-color: var(--border); }
 .plan.featured:hover { box-shadow: 0 28px 72px rgba(139,127,245,0.32); }
 .plan-badge-wrap { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--text); color: #fff; font-size: 10px; font-weight: 500; letter-spacing: 1.5px; padding: 5px 16px; border-radius: 20px; white-space: nowrap; text-transform: uppercase; }
 .plan-name { font-size: 13px; color: var(--sub); margin-bottom: 10px; }
-.plan.featured .plan-name { color: rgba(255,255,255,0.6); }
+.plan.featured .plan-name { color: rgba(255,255,255,0.7); }
 .plan-price { font-family: var(--display); font-size: 44px; font-weight: 300; letter-spacing: -2px; color: var(--text); line-height: 1; margin-bottom: 4px; font-variant-numeric: tabular-nums; }
 .plan.featured .plan-price { color: #fff; }
 .plan-period { font-size: 12px; color: var(--sub); margin-bottom: 28px; }
-.plan.featured .plan-period { color: rgba(255,255,255,0.55); }
+.plan.featured .plan-period { color: rgba(255,255,255,0.65); }
 .plan-feats { list-style: none; margin-bottom: 28px; display: flex; flex-direction: column; gap: 10px; }
 .plan-feats li { font-size: 13px; font-weight: 300; color: var(--sub); display: flex; align-items: center; gap: 8px; }
-.plan.featured .plan-feats li { color: rgba(255,255,255,0.75); }
+.plan.featured .plan-feats li { color: rgba(255,255,255,0.85); }
 .feat-check { width: 16px; height: 16px; border-radius: 50%; background: var(--a20); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
 .plan.featured .feat-check { background: rgba(255,255,255,0.2); }
 .plan-cta { width: 100%; font-family: var(--font); font-size: 14px; font-weight: 500; padding: 14px; border-radius: 14px; border: none; cursor: pointer; transition: all 0.25s var(--ease); }
@@ -365,7 +453,7 @@ footer { border-top: 1px solid var(--border); padding: 38px 48px; display: flex;
 .footer-links { display: flex; gap: 28px; }
 .footer-link { font-size: 13px; color: var(--sub); text-decoration: none; transition: color 0.2s; }
 .footer-link:hover { color: var(--text); }
-.footer-copy { font-size: 12px; color: var(--sub); opacity: 0.5; }
+.footer-copy { font-size: 12px; color: var(--sub); opacity: 0.7; }
 
 /* ── KEYFRAMES ── */
 @keyframes fadeUp     { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
@@ -380,6 +468,19 @@ footer { border-top: 1px solid var(--border); padding: 38px 48px; display: flex;
 @keyframes ringPulse  { 0% { transform:scale(1); opacity:0.8; } 100% { transform:scale(1.5); opacity:0; } }
 @keyframes medalIn    { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
 @keyframes nudgeRight { 0%,100% { transform:translateX(0); } 50% { transform:translateX(5px); } }
+
+/* ── FAQ ── */
+.faq-section { padding: 110px 0; background: var(--bg); border-top: 1px solid var(--border); }
+.faq-inner { max-width: 720px; margin: 0 auto; padding: 0 40px; }
+.faq-list { margin-top: 48px; display: flex; flex-direction: column; gap: 2px; }
+.faq-item { border-radius: 14px; overflow: hidden; background: var(--card); border: 1px solid var(--border); margin-bottom: 2px; }
+.faq-q { width: 100%; background: none; border: none; padding: 22px 24px; font-family: var(--font); font-size: 15px; font-weight: 400; color: var(--text); text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; transition: background 0.2s; }
+.faq-q:hover { background: var(--surface); }
+.faq-arrow { width: 18px; height: 18px; flex-shrink: 0; color: var(--accent); transition: transform 0.3s var(--ease); }
+.faq-item.open .faq-arrow { transform: rotate(45deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s var(--ease), padding 0.3s; padding: 0 24px; font-size: 14px; color: var(--sub); line-height: 1.7; }
+.faq-item.open .faq-a { max-height: 200px; padding: 0 24px 20px; }
+@media (max-width: 600px) { .faq-inner { padding-left: 20px; padding-right: 20px; } }
 
 /* ── REDUCED MOTION ── */
 @media (prefers-reduced-motion: reduce) {
@@ -397,6 +498,8 @@ footer { border-top: 1px solid var(--border); padding: 38px 48px; display: flex;
 @media (max-width: 600px) {
   nav { padding: 0 20px; }
   .n-links { display: none; }
+  .hamburger { display: flex; }
+  .mobile-nav { display: flex; }
   .hero, .quote-section { padding-left: 20px; padding-right: 20px; }
   .streak-inner, .identity-inner, .chart-inner, .medals-inner, .pricing-inner { padding-left: 20px; padding-right: 20px; }
 }
@@ -431,12 +534,25 @@ footer { border-top: 1px solid var(--border); padding: 38px 48px; display: flex;
   </div>
   <div class="n-right">
     <div class="lang-pill">
-      <button class="lang-btn active" onclick="setLang('es')">ES</button>
-      <button class="lang-btn"        onclick="setLang('en')">EN</button>
+      <button class="lang-btn active" data-lang="es">ES</button>
+      <button class="lang-btn"        data-lang="en">EN</button>
     </div>
     <a href="#descargar" class="n-cta" data-es="Descargar" data-en="Download">Descargar</a>
+    <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false" aria-controls="mobileNav">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Navegación mobile">
+  <a href="#racha"    data-es="Racha"    data-en="Streak">Racha</a>
+  <a href="#progreso" data-es="Progreso" data-en="Progress">Progreso</a>
+  <a href="#medallas" data-es="Medallas" data-en="Medals">Medallas</a>
+  <a href="#precio"   data-es="Precio"   data-en="Pricing">Precio</a>
+</div>
+
+<main>
 
 <!-- HERO -->
 <section class="hero" id="hero">
@@ -448,30 +564,31 @@ footer { border-top: 1px solid var(--border); padding: 38px 48px; display: flex;
   <div class="hero-content" id="heroContent">
     <div class="hero-badge">
       <span class="pulse-dot"></span>
-      <span data-es="Basado en Hábitos Atómicos" data-en="Based on Atomic Habits">Basado en Hábitos Atómicos</span>
+      <span data-es="Ciencia del comportamiento" data-en="Behavioral science">Ciencia del comportamiento</span>
     </div>
     <h1><span data-es="Pequeños hábitos.<br><strong>Resultados enormes.</strong>" data-en="Small habits.<br><strong>Enormous results.</strong>">Pequeños hábitos.<br><strong>Resultados enormes.</strong></span></h1>
     <p class="hero-sub" data-es="El sistema que realmente cambia tu identidad. No solo tu agenda." data-en="The system that truly changes your identity. Not just your schedule.">El sistema que realmente cambia tu identidad. No solo tu agenda.</p>
     <div class="hero-btns" id="descargar">
-      <a href="#" class="btn-store">
+      <a href="#" class="btn-store btn-soon" aria-disabled="true" aria-label="App Store — Próximamente">
         <svg class="btn-store-svg" width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M18.13 13.78c.03 3.42 3 4.56 3.03 4.57-.02.08-.47 1.62-1.56 3.21-.94 1.38-1.92 2.75-3.46 2.78-1.51.03-2-.9-3.73-.9-1.73 0-2.27.87-3.7.93-1.49.05-2.62-1.49-3.57-2.86C3.2 18.7 1.72 13.6 3.71 10.13c.99-1.72 2.76-2.81 4.68-2.84 1.46-.03 2.84.98 3.73.98.89 0 2.57-1.21 4.33-1.04.74.03 2.8.3 4.13 2.24-.11.07-2.47 1.44-2.45 4.31zM15.3 5.39c.79-.96 1.32-2.29 1.18-3.62-1.14.05-2.51.76-3.33 1.71-.73.85-1.37 2.2-1.2 3.5 1.27.1 2.56-.64 3.35-1.59z" fill="currentColor"/>
         </svg>
-        <span><span class="btn-store-sup" data-es="Disponible en" data-en="Download on the">Disponible en</span><span class="btn-store-name">App Store</span></span>
+        <span><span class="btn-store-sup" data-es="Próximamente en" data-en="Coming soon to">Próximamente en</span><span class="btn-store-name">App Store</span></span>
       </a>
-      <a href="#" class="btn-store">
+      <a href="#" class="btn-store btn-soon" aria-disabled="true" aria-label="Google Play — Próximamente">
         <svg class="btn-store-svg" width="22" height="24" viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M1.07 0.55C0.78 0.86 0.61 1.34 0.61 1.96v20.07c0 .62.17 1.1.46 1.41l.07.07 11.24-11.24v-.27L1.14.48l-.07.07z" fill="#00D7FE"/>
           <path d="M16.13 16.03l-3.75-3.75v-.27l3.75-3.75.08.05 4.44 2.52c1.27.72 1.27 1.9 0 2.62l-4.44 2.52-.08.06z" fill="#FFCE00"/>
           <path d="M16.21 15.97L12.38 12.14 1.07 23.45c.42.44 1.11.5 1.89.06l13.25-7.54" fill="#FF3A44"/>
           <path d="M16.21 8.31L2.96.78C2.18.33 1.49.39 1.07.84l11.31 11.3 3.83-3.83z" fill="#00F076"/>
         </svg>
-        <span><span class="btn-store-sup" data-es="Disponible en" data-en="Get it on">Disponible en</span><span class="btn-store-name">Google Play</span></span>
+        <span><span class="btn-store-sup" data-es="Próximamente en" data-en="Coming soon to">Próximamente en</span><span class="btn-store-name">Google Play</span></span>
       </a>
     </div>
     <div class="hero-proof">
-      <span class="stars">★★★★★</span>
-      <span data-es="4.9 · App Store" data-en="4.9 · App Store">4.9 · App Store</span>
+      <span data-es="Lanzamiento próximo" data-en="Launching soon">Lanzamiento próximo</span>
+      <div class="proof-sep"></div>
+      <span data-es="iOS y Android" data-en="iOS and Android">iOS y Android</span>
       <div class="proof-sep"></div>
       <span data-es="Gratis · Pro desde $1.99" data-en="Free · Pro from $1.99">Gratis · Pro desde $1.99</span>
     </div>
@@ -487,7 +604,7 @@ footer { border-top: 1px solid var(--border); padding: 38px 48px; display: flex;
 </div>
 
 <!-- STREAK -->
-<div class="streak-section" id="racha">
+<section class="streak-section" id="racha">
   <div class="streak-inner">
     <div>
       <div class="section-label reveal"                data-es="Racha diaria" data-en="Daily streak">Racha diaria</div>
@@ -509,10 +626,10 @@ footer { border-top: 1px solid var(--border); padding: 38px 48px; display: flex;
       <div class="chain-grid" id="chainGrid"></div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- IDENTITY -->
-<div class="identity-section">
+<section class="identity-section">
   <div class="identity-bg-text" id="identityBgText">IDENTIDAD</div>
   <div class="identity-inner">
     <div class="section-label reveal"                data-es="Identidad" data-en="Identity">Identidad</div>
@@ -536,10 +653,10 @@ footer { border-top: 1px solid var(--border); padding: 38px 48px; display: flex;
       </div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- CHARTS -->
-<div class="chart-section" id="progreso">
+<section class="chart-section" id="progreso">
   <div class="chart-inner">
     <div class="section-label reveal"                data-es="Estadísticas" data-en="Statistics">Estadísticas</div>
     <div class="section-title reveal reveal-delay-1" data-es="Tu progreso,<br>en números reales." data-en="Your progress,<br>in real numbers.">Tu progreso,<br>en números reales.</div>
@@ -559,13 +676,14 @@ footer { border-top: 1px solid var(--border); padding: 38px 48px; display: flex;
             <path id="areaP" fill="url(#aGrad)"/>
             <path id="lineP" class="line-path"/>
             <g id="lineDots"></g>
-            <text x="0"   y="118" fill="rgba(0,0,0,0.28)" font-size="11" font-family="Inter,sans-serif">Dom</text>
-            <text x="55"  y="118" fill="rgba(0,0,0,0.28)" font-size="11" font-family="Inter,sans-serif">Lun</text>
-            <text x="110" y="118" fill="rgba(0,0,0,0.28)" font-size="11" font-family="Inter,sans-serif">Mar</text>
-            <text x="163" y="118" fill="rgba(0,0,0,0.28)" font-size="11" font-family="Inter,sans-serif">Mié</text>
-            <text x="216" y="118" fill="rgba(0,0,0,0.28)" font-size="11" font-family="Inter,sans-serif">Jue</text>
-            <text x="269" y="118" fill="rgba(0,0,0,0.28)" font-size="11" font-family="Inter,sans-serif">Vie</text>
-            <text x="318" y="118" fill="rgba(0,0,0,0.28)" font-size="11" font-family="Inter,sans-serif">Sáb</text>
+            <!-- Day labels — updated via setLang() -->
+            <text id="lday0" x="0"   y="118" fill="rgba(0,0,0,0.35)" font-size="11" font-family="Inter,sans-serif" data-es="Dom" data-en="Sun">Dom</text>
+            <text id="lday1" x="55"  y="118" fill="rgba(0,0,0,0.35)" font-size="11" font-family="Inter,sans-serif" data-es="Lun" data-en="Mon">Lun</text>
+            <text id="lday2" x="110" y="118" fill="rgba(0,0,0,0.35)" font-size="11" font-family="Inter,sans-serif" data-es="Mar" data-en="Tue">Mar</text>
+            <text id="lday3" x="163" y="118" fill="rgba(0,0,0,0.35)" font-size="11" font-family="Inter,sans-serif" data-es="Mié" data-en="Wed">Mié</text>
+            <text id="lday4" x="216" y="118" fill="rgba(0,0,0,0.35)" font-size="11" font-family="Inter,sans-serif" data-es="Jue" data-en="Thu">Jue</text>
+            <text id="lday5" x="269" y="118" fill="rgba(0,0,0,0.35)" font-size="11" font-family="Inter,sans-serif" data-es="Vie" data-en="Fri">Vie</text>
+            <text id="lday6" x="318" y="118" fill="rgba(0,0,0,0.35)" font-size="11" font-family="Inter,sans-serif" data-es="Sáb" data-en="Sat">Sáb</text>
           </svg>
         </div>
       </div>
@@ -576,7 +694,7 @@ footer { border-top: 1px solid var(--border); padding: 38px 48px; display: flex;
         <div class="bar-months-row" id="barMonths"></div>
       </div>
       <div class="chart-card tilt reveal reveal-delay-1">
-        <div class="chart-card-label" data-es="Mayo 2026" data-en="May 2026">Mayo 2026</div>
+        <div class="chart-card-label" data-es="Julio 2026" data-en="July 2026">Julio 2026</div>
         <div class="chart-card-title" data-es="Calendario mensual" data-en="Monthly calendar">Calendario mensual</div>
         <div class="cal-grid" id="calGrid"></div>
         <div class="cal-legend">
@@ -595,7 +713,7 @@ footer { border-top: 1px solid var(--border); padding: 38px 48px; display: flex;
               stroke-dasharray="289" stroke-dashoffset="289" stroke-linecap="round"
               transform="rotate(-90 60 60)" class="donut-ring" id="donutMain" data-offset="72"/>
             <text x="60" y="55" text-anchor="middle" font-size="15" font-family="Outfit,sans-serif" font-weight="300" fill="#8B7FF5" class="counter" data-target="75" data-suffix="%" id="donutPct">0%</text>
-            <text x="60" y="69" text-anchor="middle" font-size="9" font-family="Inter,sans-serif" fill="rgba(0,0,0,0.35)" data-es="completado" data-en="completed">completado</text>
+            <text x="60" y="69" text-anchor="middle" font-size="9" font-family="Inter,sans-serif" fill="rgba(0,0,0,0.45)" data-es="completado" data-en="completed">completado</text>
           </svg>
           <div class="donut-legend">
             <div class="donut-item"><div class="donut-dot" style="background:var(--accent);"></div><span class="donut-item-label" data-es="Logros" data-en="Achieved">Logros</span><span class="donut-item-val">3</span></div>
@@ -606,32 +724,32 @@ footer { border-top: 1px solid var(--border); padding: 38px 48px; display: flex;
       </div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- MEDALS -->
-<div class="medals-section" id="medallas">
+<section class="medals-section" id="medallas">
   <div class="medals-inner">
     <div class="section-label reveal"                data-es="Medallas" data-en="Medals">Medallas</div>
     <div class="section-title reveal reveal-delay-1" data-es="Celebra cada<br>hito de constancia." data-en="Celebrate every<br>consistency milestone.">Celebra cada<br>hito de constancia.</div>
-    <div class="section-sub reveal reveal-delay-2"   data-es="9 medallas desbloqueables en hitos científicamente fundamentados." data-en="9 unlockable medals at scientifically grounded milestones.">9 medallas desbloqueables en hitos científicamente fundamentados.</div>
+    <div class="section-sub reveal reveal-delay-2"   data-es="9 medallas desbloqueables en los hitos clave de la psicología del hábito." data-en="9 unlockable medals at the key milestones of habit psychology.">9 medallas desbloqueables en los hitos clave de la psicología del hábito.</div>
     <div class="medals-track" id="medalsTrack"></div>
     <div class="medals-hint reveal">
       <ion-icon name="arrow-forward-outline"></ion-icon>
       <span data-es="Desliza para ver todas" data-en="Swipe to see all">Desliza para ver todas</span>
     </div>
   </div>
-</div>
+</section>
 
 <!-- QUOTE -->
-<div class="quote-section reveal">
+<section class="quote-section reveal">
   <div class="quote-orb" id="quoteOrb"></div>
   <div class="quote-mark">"</div>
-  <div class="quote-text" data-es='"Cada acción que tomas es un voto para el tipo de persona que deseas ser."' data-en='"Every action you take is a vote for the type of person you wish to become."'>"Cada acción que tomas es un voto para el tipo de persona que deseas ser."</div>
-  <div class="quote-author">— James Clear, Hábitos Atómicos · Cap. 3</div>
-</div>
+  <div class="quote-text" data-es='"Somos lo que hacemos repetidamente. La excelencia no es un acto, sino un hábito."' data-en='"We are what we repeatedly do. Excellence, then, is not an act but a habit."'>"Somos lo que hacemos repetidamente. La excelencia no es un acto, sino un hábito."</div>
+  <div class="quote-author">— Aristóteles</div>
+</section>
 
 <!-- PRICING -->
-<div class="pricing-section" id="precio">
+<section class="pricing-section" id="precio">
   <div class="pricing-inner">
     <div class="section-label reveal"                data-es="Precio" data-en="Pricing">Precio</div>
     <div class="section-title reveal reveal-delay-1" data-es="Simple y honesto." data-en="Simple and honest.">Simple y honesto.</div>
@@ -675,36 +793,130 @@ footer { border-top: 1px solid var(--border); padding: 38px 48px; display: flex;
       </div>
     </div>
   </div>
-</div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="section-label reveal" data-es="Preguntas frecuentes" data-en="FAQ">Preguntas frecuentes</div>
+    <div class="section-title reveal reveal-delay-1" data-es="Todo lo que<br>necesitas saber." data-en="Everything you<br>need to know.">Todo lo que<br>necesitas saber.</div>
+    <div class="faq-list reveal reveal-delay-2">
+      <div class="faq-item">
+        <button class="faq-q">
+          <span data-es="¿Funciona sin conexión a internet?" data-en="Does it work offline?">¿Funciona sin conexión a internet?</span>
+          <svg class="faq-arrow" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3v12M3 9h12"/></svg>
+        </button>
+        <div class="faq-a" data-es="Sí. Todos los datos se guardan localmente en tu dispositivo. No necesitas internet para registrar ni consultar tus hábitos." data-en="Yes. All data is saved locally on your device. You don't need internet to log or view your habits.">Sí. Todos los datos se guardan localmente en tu dispositivo. No necesitas internet para registrar ni consultar tus hábitos.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          <span data-es="¿Mis datos son privados?" data-en="Is my data private?">¿Mis datos son privados?</span>
+          <svg class="faq-arrow" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3v12M3 9h12"/></svg>
+        </button>
+        <div class="faq-a" data-es="Completamente. ATOMIK no requiere cuenta ni envía datos a servidores externos. Todo queda en tu teléfono." data-en="Completely. ATOMIK requires no account and sends no data to external servers. Everything stays on your phone.">Completamente. ATOMIK no requiere cuenta ni envía datos a servidores externos. Todo queda en tu teléfono.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          <span data-es="¿Puedo usar la app en más de un dispositivo?" data-en="Can I use the app on multiple devices?">¿Puedo usar la app en más de un dispositivo?</span>
+          <svg class="faq-arrow" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3v12M3 9h12"/></svg>
+        </button>
+        <div class="faq-a" data-es="Actualmente los datos se guardan en el dispositivo. La sincronización entre dispositivos está en nuestra hoja de ruta próxima." data-en="Data is currently saved per device. Cross-device sync is on our near-term roadmap.">Actualmente los datos se guardan en el dispositivo. La sincronización entre dispositivos está en nuestra hoja de ruta próxima.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          <span data-es="¿Puedo cancelar el plan mensual?" data-en="Can I cancel the monthly plan?">¿Puedo cancelar el plan mensual?</span>
+          <svg class="faq-arrow" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3v12M3 9h12"/></svg>
+        </button>
+        <div class="faq-a" data-es="Sí, en cualquier momento desde la configuración de tu cuenta en App Store o Google Play. Sin penalizaciones." data-en="Yes, at any time from your App Store or Google Play account settings. No penalties.">Sí, en cualquier momento desde la configuración de tu cuenta en App Store o Google Play. Sin penalizaciones.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          <span data-es="¿Qué diferencia hay entre el plan gratuito y Pro?" data-en="What's the difference between Free and Pro?">¿Qué diferencia hay entre el plan gratuito y Pro?</span>
+          <svg class="faq-arrow" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3v12M3 9h12"/></svg>
+        </button>
+        <div class="faq-a" data-es="El plan gratuito incluye hasta 3 hábitos, racha y medallas básicas. Pro desbloquea hábitos ilimitados, estadísticas avanzadas, todas las medallas, temas de color y bloqueo biométrico." data-en="The free plan includes up to 3 habits, streaks, and basic medals. Pro unlocks unlimited habits, advanced stats, all medals, color themes, and biometric lock.">El plan gratuito incluye hasta 3 hábitos, racha y medallas básicas. Pro desbloquea hábitos ilimitados, estadísticas avanzadas, todas las medallas, temas de color y bloqueo biométrico.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
 
 <!-- FOOTER -->
 <footer>
   <span class="footer-logo">ATOMIK</span>
   <div class="footer-links">
-    <a href="#" class="footer-link" data-es="Privacidad" data-en="Privacy">Privacidad</a>
-    <a href="#" class="footer-link" data-es="Términos"   data-en="Terms">Términos</a>
-    <a href="#" class="footer-link" data-es="Contacto"   data-en="Contact">Contacto</a>
+    <a href="privacy.html" class="footer-link" data-es="Privacidad" data-en="Privacy">Privacidad</a>
+    <a href="support.html" class="footer-link" data-es="Soporte"    data-en="Support">Soporte</a>
+    <a href="mailto:joguic@gmail.com" class="footer-link" data-es="Contacto" data-en="Contact">Contacto</a>
   </div>
-  <div class="footer-copy" data-es="© 2026 ATOMIK · Basado en Hábitos Atómicos" data-en="© 2026 ATOMIK · Based on Atomic Habits">© 2026 ATOMIK · Basado en Hábitos Atómicos</div>
+  <div class="footer-copy" data-es="© 2026 ATOMIK" data-en="© 2026 ATOMIK">© 2026 ATOMIK</div>
 </footer>
 
 <script>
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ── LANG ── */
+const MONTHS = {
+  es: ['ago','sep','oct','nov','dic','ene','feb','mar','abr','may','jun','jul'],
+  en: ['aug','sep','oct','nov','dec','jan','feb','mar','apr','may','jun','jul']
+};
+
+function updateBarMonths(lang) {
+  const mrow = document.getElementById('barMonths');
+  if (!mrow) return;
+  const months = MONTHS[lang] || MONTHS.es;
+  mrow.querySelectorAll('.bar-month').forEach((el, i) => {
+    el.textContent = months[i] || '';
+  });
+}
+
 function setLang(lang) {
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+  const activeBtn = document.querySelector(`.lang-btn[data-lang="${lang}"]`);
+  if (activeBtn) activeBtn.classList.add('active');
+
   document.querySelectorAll('[data-es]').forEach(el => {
     const txt = el.getAttribute('data-' + lang);
     if (!txt) return;
     if (txt.includes('<')) el.innerHTML = txt; else el.textContent = txt;
   });
   document.documentElement.lang = lang;
+
+  updateBarMonths(lang);
   buildMarquee(lang);
 }
 
-/* ── SCROLL: progress bar + nav border + parallax + hero scroll-out ── */
+/* ── HAMBURGER ── */
+const hamburger  = document.getElementById('hamburger');
+const mobileNav  = document.getElementById('mobileNav');
+
+hamburger.addEventListener('click', () => {
+  const isOpen = mobileNav.classList.toggle('open');
+  hamburger.classList.toggle('open', isOpen);
+  hamburger.setAttribute('aria-expanded', String(isOpen));
+});
+
+/* Close mobile nav when a link is clicked */
+mobileNav.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    mobileNav.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+  });
+});
+
+/* ── LANG BUTTONS ── */
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => setLang(btn.dataset.lang));
+});
+
+/* ── COMING SOON BUTTONS (prevent click) ── */
+document.querySelectorAll('.btn-soon').forEach(btn => {
+  btn.addEventListener('click', e => e.preventDefault());
+});
+
+/* ── SCROLL: progress bar + nav border + parallax ── */
 const progressBar = document.getElementById('scrollProgress');
 const navEl       = document.getElementById('nav');
 const heroContent = document.getElementById('heroContent');
@@ -723,7 +935,6 @@ window.addEventListener('scroll', () => {
     if (navEl) navEl.classList.toggle('scrolled', y > 30);
 
     if (!reducedMotion) {
-      /* hero scroll-out: fade + scale + drift */
       const vh = window.innerHeight;
       if (heroContent && y < vh) {
         const p = y / vh;
@@ -734,8 +945,6 @@ window.addEventListener('scroll', () => {
       document.querySelectorAll('.orbit-dot').forEach((d, i) => {
         if (y < vh) d.style.marginTop = `${y * (0.05 + i * 0.02)}px`;
       });
-
-      /* identity big text drift */
       if (identityBg) {
         const r = identityBg.parentElement.getBoundingClientRect();
         if (r.top < vh && r.bottom > 0) {
@@ -743,7 +952,6 @@ window.addEventListener('scroll', () => {
           identityBg.style.transform = `translate(calc(-50% + ${prog * 60}px), -50%)`;
         }
       }
-      /* quote orb drift */
       if (quoteOrb) {
         const r = quoteOrb.parentElement.getBoundingClientRect();
         if (r.top < vh && r.bottom > 0) {
@@ -775,7 +983,7 @@ const io = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-/* ── COUNTERS (count-up when visible) ── */
+/* ── COUNTERS ── */
 function animateCounter(el) {
   const target = parseInt(el.dataset.target, 10);
   const suffix = el.dataset.suffix || '';
@@ -796,7 +1004,7 @@ const counterIo = new IntersectionObserver(entries => {
 }, { threshold: 0.5 });
 document.querySelectorAll('.counter').forEach(el => counterIo.observe(el));
 
-/* ── 3D TILT on chart cards ── */
+/* ── 3D TILT ── */
 if (!reducedMotion && matchMedia('(pointer: fine)').matches) {
   document.querySelectorAll('.tilt').forEach(card => {
     card.addEventListener('mousemove', e => {
@@ -819,7 +1027,6 @@ function buildMarquee(lang) {
   if (!inner) return;
   inner.innerHTML = '';
   const items = MQ_ITEMS[lang] || MQ_ITEMS.es;
-  /* duplicate set twice for seamless loop */
   for (let rep = 0; rep < 2; rep++) {
     items.forEach(t => {
       const s = document.createElement('span');
@@ -831,7 +1038,18 @@ function buildMarquee(lang) {
 }
 buildMarquee('es');
 
-/* ── CHAIN GRID (viewport-triggered) ── */
+/* ── FAQ ACCORDION ── */
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => toggleFaq(btn));
+});
+
+/* ── CHAIN GRID ── */
 (function() {
   const g = document.getElementById('chainGrid');
   if (!g) return;
@@ -856,7 +1074,8 @@ buildMarquee('es');
 
 /* ── LINE CHART ── */
 (function() {
-  const vals = [100, 100, 33, 0, 0, 0, 50];
+  /* Jul 5–11: Dom=0%, Lun=100%, Mar=100%, Mié=100%, Jue=100%, Vie=100%, Sáb=67% */
+  const vals = [0, 100, 100, 100, 100, 100, 67];
   const W = 400, H = 100;
   const xs = vals.map((_, i) => Math.round((i / (vals.length - 1)) * W));
   const ys = vals.map(v => Math.round(H - (v / 100) * H));
@@ -891,13 +1110,13 @@ buildMarquee('es');
   }
 })();
 
-/* ── BAR CHART ── */
+/* ── BAR CHART (ago 2025 – jul 2026) ── */
 (function() {
   const wrap = document.getElementById('barWrap');
   const mrow = document.getElementById('barMonths');
   if (!wrap || !mrow) return;
-  const months = ['jun','jul','ago','sep','oct','nov','dic','ene','feb','mar','abr','may'];
-  const vals   = [0,0,0,0,0,0,0,0,0,0,0,51];
+  /* Only May–Jul have data (app launched May 2026) */
+  const vals = [0,0,0,0,0,0,0,0,0,51,68,47];
   const bars = [];
   vals.forEach((v, i) => {
     const col = document.createElement('div');
@@ -908,7 +1127,8 @@ buildMarquee('es');
     col.appendChild(bar); wrap.appendChild(col);
     bars.push({ bar, v });
   });
-  months.forEach(m => {
+  /* Build month labels (ES default; updateBarMonths() handles EN) */
+  MONTHS.es.forEach(m => {
     const s = document.createElement('div');
     s.className = 'bar-month'; s.textContent = m; mrow.appendChild(s);
   });
@@ -919,7 +1139,11 @@ buildMarquee('es');
   }, { threshold: 0.3 }).observe(wrap);
 })();
 
-/* ── CALENDAR (viewport-triggered pops) ── */
+/* ── CALENDAR — July 2026 ──
+   Jul 1 = Wednesday → 2 blank cells (Mon, Tue)
+   Days shown: Jul 1–11 (today = Sat Jul 11)
+   Pattern: done, done, done, done, fail, done, done, done, done, done, today
+── */
 (function() {
   const g = document.getElementById('calGrid');
   if (!g) return;
@@ -928,12 +1152,14 @@ buildMarquee('es');
     el.className = 'cal-header';
     el.textContent = h; g.appendChild(el);
   });
-  for (let i = 0; i < 4; i++) {
+  /* 2 blank cells before Jul 1 (Wednesday) */
+  for (let i = 0; i < 2; i++) {
     const b = document.createElement('div');
     b.className = 'cal-day cal-blank';
     g.appendChild(b);
   }
-  const types = ['done','done','done','done','done','done','done','fail','done','fail','done','done','done','done','fail','fail','done','done','done','done','done','done','today'];
+  /* Jul 1–10: done/fail pattern; Jul 11 = today */
+  const types = ['done','done','done','done','fail','done','done','done','done','done','today'];
   types.forEach((t, i) => {
     const d = document.createElement('div');
     d.className = 'cal-day cal-' + t;
@@ -945,7 +1171,7 @@ buildMarquee('es');
   }, { threshold: 0.3 }).observe(g);
 })();
 
-/* ── DONUT (fill when visible) ── */
+/* ── DONUT ── */
 (function() {
   const ring = document.getElementById('donutMain');
   if (!ring) return;
@@ -956,7 +1182,7 @@ buildMarquee('es');
   }, { threshold: 0.4 }).observe(ring);
 })();
 
-/* ── MEDALS (viewport-triggered, Ionicons) ── */
+/* ── MEDALS ── */
 (function() {
   const track = document.getElementById('medalsTrack');
   if (!track) return;
